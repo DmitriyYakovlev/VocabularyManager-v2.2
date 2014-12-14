@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_view_pager_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/topTestLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/topLeftLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/tvLeftKeyText"
+                    style="@style/st_text_black_for_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/topRightLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:id="@+id/buttonHolder"
+                    android:layout_width="@dimen/dm_testing_ch_one_buttons_width"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btnFirstVariant"
+                        style="@style/whiteTextInButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dm_testing_ch_one_button_height"
+                        android:layout_marginTop="@dimen/dm_testing_ch_one_button_margin_top"
+                        android:background="@drawable/rounded_button_normal_state" />
+
+                    <Button
+                        android:id="@+id/btnSecondVariant"
+                        style="@style/whiteTextInButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dm_testing_ch_one_button_height"
+                        android:layout_marginTop="@dimen/dm_testing_ch_one_button_margin_top"
+                        android:background="@drawable/rounded_button_normal_state" />
+
+                    <Button
+                        android:id="@+id/btnThirdVariant"
+                        style="@style/whiteTextInButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dm_testing_ch_one_button_height"
+                        android:layout_marginTop="@dimen/dm_testing_ch_one_button_margin_top"
+                        android:background="@drawable/rounded_button_normal_state" />
+
+                    <Button
+                        android:id="@+id/btnFourVariant"
+                        style="@style/whiteTextInButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dm_testing_ch_one_button_height"
+                        android:layout_marginTop="@dimen/dm_testing_ch_one_button_margin_top"
+                        android:background="@drawable/rounded_button_normal_state" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottomTestLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6" >
+
+            <TextView
+                android:id="@+id/tvPersent"
+                style="@style/st_text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="90 %"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="dim_float_weight_sum" format="float" type="dimen">1.0</item>
+    <item name="dim_float_weight_for_first_column" format="float" type="dimen">50</item>
+    <item name="dim_float_weight_for_second_column" format="float" type="dimen">50</item>
+    <item name="dim_float_weight_for_third_column" format="float" type="dimen">50</item>
+    <item name="dim_float_weight_for_left_and_right_record_in_compare_records_activity" format="float" type="dimen">20</item>
+    <item name="dim_float_weight_for_center_effect_in_compare_records_activity" format="float" type="dimen">23</item>
+    <item name="dim_alpha_value_for_all_app" format="float" type="dimen">0.8</item>
+    <item name="dim_for_menu_left_part" format="float" type="dimen">1</item>
+    <item name="dim_for_menu_right_part" format="float" type="dimen">2</item>
+
+</resources>

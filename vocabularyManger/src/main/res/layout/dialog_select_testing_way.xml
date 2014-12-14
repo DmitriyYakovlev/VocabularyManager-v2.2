@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/col_blue"
+    android:padding="@dimen/dm_dialog_select_way_of_testing_padding">
+
+    <TextView
+        android:id="@+id/tvDialogHeader"
+        style="@style/st_text_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/dm_dialog_select_way_of_testing_header_title"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/btnLayoutHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDialogHeader"
+        android:layout_marginTop="@dimen/dm_dialog_select_way_of_testing_buttons_holder_top_margin"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rlButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnFreeAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_dialog_select_way_of_testing_buttons_height"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dm_dialog_select_way_of_testing_buttons_top_margin"
+                android:background="@drawable/rounded_orange_button"
+                android:text="Free answer"
+                android:textSize="@dimen/dm_dialog_select_way_of_testing_buttons_text_size"></Button>
+
+            <Button
+                android:id="@+id/btnEstablishCompliance"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_dialog_select_way_of_testing_buttons_height"
+                android:layout_below="@+id/btnFreeAnswer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dm_dialog_select_way_of_testing_buttons_top_margin"
+                android:background="@drawable/rounded_orange_button"
+                android:enabled="false"
+                android:text="Establish compliance"
+                android:textSize="@dimen/dm_dialog_select_way_of_testing_buttons_text_size"></Button>
+
+            <Button
+                android:id="@+id/btnChooseVariant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_dialog_select_way_of_testing_buttons_height"
+                android:layout_below="@+id/btnEstablishCompliance"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dm_dialog_select_way_of_testing_buttons_top_margin"
+                android:background="@drawable/rounded_orange_button"
+                android:text="Choose one variant"
+                android:textSize="@dimen/dm_dialog_select_way_of_testing_buttons_text_size"></Button>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

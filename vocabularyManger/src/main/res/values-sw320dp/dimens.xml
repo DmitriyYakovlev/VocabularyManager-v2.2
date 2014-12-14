@@ -1,0 +1,72 @@
+<resources>
+
+    <!-- VALUES (... to 4'') 320dp: a typical phone screen (240x320 ldpi, 320x480 mdpi, 480x800 hdpi, etc). -->
+
+    <!-- dialog select way of testing-->
+    <dimen name="dm_dialog_select_way_of_testing_padding">3dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_header_title">18sp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_holder_top_margin">2dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_height">50dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_top_margin">10dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_text_size">15sp</dimen>
+    <!---->
+
+
+
+    <!--Main Activity -->
+    <dimen name="dm_main_act_menu_items_padding">10dp</dimen>
+    <dimen name="dm_main_act_menu_items_margin_top_first">10dp</dimen>
+    <dimen name="dm_main_act_menu_items_margin_top_other">15dp</dimen>
+    <dimen name="dm_main_act_menu_items_text_size">22sp</dimen>
+
+    <!--learn adapter-->
+    <dimen name="dm_learn_adapter_item_height">60dp</dimen>
+    <dimen name="dm_learn_adapter_item_text_size">18sp</dimen>
+
+    <!--testing functionality-->
+    <dimen name="dm_testing_circle_indicator_margin_top">5dp</dimen>
+    <dimen name="dm_testing_circle_indicator_padding">2dp</dimen>
+    <dimen name="dm_testing_tv_percentage_text_size">25sp</dimen>
+    <dimen name="dm_testing_tv_percentage_margin_bottom">40dp</dimen>
+    <!--choose one variant-->
+    <dimen name="dm_testing_ch_one_left_text_size">30sp</dimen>
+    <dimen name="dm_testing_ch_one_buttons_width">250dp</dimen>
+    <dimen name="dm_testing_ch_one_button_height">30dp</dimen>
+    <dimen name="dm_testing_ch_one_button_margin_top">4dp</dimen>
+    <dimen name="dm_testing_ch_one_button_text_size">13sp</dimen>
+    <!--enter variant -->
+    <dimen name="dm_testing_type_ans_edt_width">200dp</dimen>
+    <dimen name="dm_testing_type_ans_edt_text_size">22sp</dimen>
+    <dimen name="dm_testing_type_ans_bnt_width">80dp</dimen>
+    <dimen name="dm_testing_type_ans_bnt_height">45dp</dimen>
+    <dimen name="dm_testing_type_ans_bnt_margin">10dp</dimen>
+
+    <!--edit vocabulary-->
+    <dimen name="dm_edit_vocab_padding">2dp</dimen>
+    <dimen name="dm_edit_vocab_name_text_size">15sp</dimen>
+    <dimen name="dm_vocabs_item">80dp</dimen>
+    <dimen name="dm_words_list_item_height">40dp</dimen>
+    <dimen name="dm_words_item_margin">2dp</dimen>
+    <dimen name="dm_words_icons_size">30dp</dimen>
+    <dimen name="dm_words_margin_left">3dp</dimen>
+
+
+    <!-- base template -->
+    <dimen name="dm_tv_version_text_size">20sp</dimen>
+    <dimen name="dm_tv_version_margin_left">25dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="dm_iv_size">50dp</dimen>
+    <dimen name="dm_iv_margin">10dp</dimen>
+    <dimen name="dm_top_rl_height">40dp</dimen>
+    <dimen name="dm_top_rl_tv_left_margin">50dp</dimen>
+    <dimen name="dm_dark_line_height">35dp</dimen>
+
+    <!-- FILE EXPLORER -->
+    <dimen name="dm_explorer_row_padding_left">10dp</dimen>
+    <dimen name="dm_explorer_btn_save_height">70dp</dimen>
+    <dimen name="dm_explorer_scroll_v_path_height">40dp</dimen>
+    <dimen name="dm_ts_explorer_tv_row">22sp</dimen>
+    <dimen name="dm_ts_explorer_btn_save">30sp</dimen>
+
+</resources>

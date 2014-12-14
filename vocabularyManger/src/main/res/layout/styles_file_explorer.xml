@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="st_explorer_tv_row">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">@dimen/dm_explorer_row_padding_left</item>
+        <item name="android:textColor">@color/black_my</item>
+        <item name="android:textSize">@dimen/dm_ts_explorer_tv_row</item>
+    </style>
+
+    <style name="st_explorer_save_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dm_explorer_btn_save_height</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textColor">@color/col_white_my</item>
+        <item name="android:textSize">@dimen/dm_ts_explorer_btn_save</item>
+        <item name="android:background">@drawable/rounded_button_testing</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="st_explorer_scroll_v_path">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dm_explorer_scroll_v_path_height</item>
+        <item name="android:background">@color/blue_my</item>
+    </style>
+
+</resources>

@@ -1,0 +1,53 @@
+#
+# generated on 2014/05/03 04:45:21
+#
+# --table-start--
+dataClass=com.yakovlev.prod.vocabularymanager.ormlite.Vocabulary
+tableName=vocabulary
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=vName
+indexName=vocabulary_vName_idx
+# --field-end--
+# --field-start--
+fieldName=vDescription
+# --field-end--
+# --field-start--
+fieldName=authorId
+# --field-end--
+# --field-start--
+fieldName=date
+# --field-end--
+# --field-start--
+fieldName=lastModdate
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.yakovlev.prod.vocabularymanager.ormlite.WordTable
+tableName=wordtable
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=wKey
+indexName=wordtable_wKey_idx
+# --field-end--
+# --field-start--
+fieldName=wValue
+# --field-end--
+# --field-start--
+fieldName=vocabularyId
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

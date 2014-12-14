@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/st_rl_parent" >
+
+    <RelativeLayout
+        android:id="@+id/relTopHeader"
+        style="@style/st_rl_top" >
+
+        <TextView
+            android:id="@+id/tvActName"
+            style="@style/st_tv_header_act_name" />
+    </RelativeLayout>
+
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/rlBottomFake"
+        style="@style/st_rl_fake"
+        android:layout_below="@id/relTopHeader" >
+
+        <RelativeLayout
+            android:id="@+id/rlTopChildLayoutFake"
+            style="@style/st_rl_fake_middle"
+            android:layout_above="@+id/relBottomChildLayoutFake" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relBottomChildLayoutFake"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/relBottomPart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relTopHeader" >
+
+        <LinearLayout
+            android:id="@+id/rlMiddleContent"
+            style="@style/st_rl_middle_content"
+            android:layout_above="@+id/rlBottomLine"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <RelativeLayout
+                android:id="@+id/rlLeftResultContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/tvWrongHeader"
+                    style="@style/st_text_white_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="@string/txt_wrong_answers" >
+                </TextView>
+
+                <RelativeLayout
+                    android:id="@+id/tvListContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tvWrongHeader"
+                    android:alpha="0.7"
+                    android:background="@color/col_gray" >
+
+                    <ListView
+                        android:id="@+id/lvWrong"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+                    </ListView>
+
+                    <TextView
+                        android:id="@+id/empyWall"
+                        style="@style/st_text_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/col_gray_gainsboro"
+                        android:gravity="center"
+                        android:text="@string/s_empty_list_if_correct"
+                        android:visibility="gone" >
+                    </TextView>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlRightResultContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="10dp" >
+
+                <TextView
+                    android:id="@+id/tvStatistickHeader"
+                    style="@style/st_text_white_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="@string/txt_stat_header" >
+                </TextView>
+
+                <RelativeLayout
+                    android:id="@+id/statLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tvStatistickHeader"
+                    android:alpha="0.7"
+                    android:background="@color/col_gray"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:id="@+id/tvTestPersentage"
+                        style="@style/st_text_white_for_rezult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_persentage" >
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/tvTestNumber"
+                        style="@style/st_text_white_for_rezult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvTestPersentage"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/txt_corect_num" >
+                    </TextView>
+
+                    <Button
+                        android:id="@+id/btnGoToMainManu"
+                        android:layout_width="180dp"
+                        android:layout_height="50dp"
+                        android:text="@string/txt_go_to_menu"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:background="@drawable/rounded_button_normal_state"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlBottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+
+            <TextView
+                android:id="@+id/tvVersionSHOW"
+                style="@style/st_tv_version" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

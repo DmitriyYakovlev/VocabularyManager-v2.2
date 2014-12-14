@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- VALUES DEFAULT -->
+
+    <!-- dialog select way of testing-->
+    <dimen name="dm_dialog_select_way_of_testing_padding">10dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_header_title">28sp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_holder_top_margin">2dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_height">80dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_top_margin">15dp</dimen>
+    <dimen name="dm_dialog_select_way_of_testing_buttons_text_size">25sp</dimen>
+    <!---->
+
+
+    <!--Main Activity -->
+    <dimen name="dm_main_act_menu_items_padding">20dp</dimen>
+    <dimen name="dm_main_act_menu_items_margin_top_first">10dp</dimen>
+    <dimen name="dm_main_act_menu_items_margin_top_other">30dp</dimen>
+    <dimen name="dm_main_act_menu_items_text_size">28sp</dimen>
+
+    <!--learn adapter-->
+    <dimen name="dm_learn_adapter_item_height">80dp</dimen>
+    <dimen name="dm_learn_adapter_item_text_size">21sp</dimen>
+
+    <!--testing functionality-->
+    <dimen name="dm_testing_circle_indicator_margin_top">5dp</dimen>
+    <dimen name="dm_testing_circle_indicator_padding">2dp</dimen>
+    <dimen name="dm_testing_tv_percentage_text_size">25sp</dimen>
+    <dimen name="dm_testing_tv_percentage_margin_bottom">40dp</dimen>
+    <!--choose one variant-->
+    <dimen name="dm_testing_ch_one_left_text_size">30sp</dimen>
+    <dimen name="dm_testing_ch_one_buttons_width">300dp</dimen>
+    <dimen name="dm_testing_ch_one_button_height">60dp</dimen>
+    <dimen name="dm_testing_ch_one_button_margin_top">20dp</dimen>
+    <dimen name="dm_testing_ch_one_button_text_size">22sp</dimen>
+    <!--enter variant -->
+    <dimen name="dm_testing_type_ans_edt_width">300dp</dimen>
+    <dimen name="dm_testing_type_ans_edt_text_size">22sp</dimen>
+    <dimen name="dm_testing_type_ans_bnt_width">100dp</dimen>
+    <dimen name="dm_testing_type_ans_bnt_height">45dp</dimen>
+    <dimen name="dm_testing_type_ans_bnt_margin">10dp</dimen>
+
+    <!--edit vocabulary-->
+    <dimen name="dm_edit_vocab_padding">10dp</dimen>
+    <dimen name="dm_edit_vocab_name_text_size">23sp</dimen>
+    <dimen name="dm_vocabs_item">80dp</dimen>
+    <dimen name="dm_words_list_item_height">50dp</dimen>
+    <dimen name="dm_words_item_margin">5dp</dimen>
+    <dimen name="dm_words_icons_size">50dp</dimen>
+    <dimen name="dm_words_margin_left">10dp</dimen>
+
+
+    <!-- base template -->
+    <dimen name="dm_tv_version_text_size">23sp</dimen>
+    <dimen name="dm_tv_version_margin_left">25dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="dm_iv_size">50dp</dimen>
+    <dimen name="dm_iv_margin">10dp</dimen>
+    <dimen name="dm_top_rl_height">70dp</dimen>
+    <dimen name="dm_top_rl_tv_left_margin">50dp</dimen>
+    <dimen name="dm_dark_line_height">35dp</dimen>
+
+    <!-- FILE EXPLORER -->
+    <dimen name="dm_explorer_row_padding_left">10dp</dimen>
+    <dimen name="dm_explorer_btn_save_height">70dp</dimen>
+    <dimen name="dm_explorer_scroll_v_path_height">40dp</dimen>
+    <dimen name="dm_ts_explorer_tv_row">22sp</dimen>
+    <dimen name="dm_ts_explorer_btn_save">30sp</dimen>
+
+</resources>

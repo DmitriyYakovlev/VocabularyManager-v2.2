@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/st_rl_parent" >
+
+    <!--
+    <ImageButton
+        android:id="@+id/imgAddVocab"
+        android:layout_width="@dimen/dm_iv_size"
+        android:layout_height="@dimen/dm_iv_size"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/dm_iv_margin"
+        android:background="@drawable/add_vocab" >
+    </ImageButton>    -->
+
+    <RelativeLayout
+        android:id="@+id/relTopHeader"
+        style="@style/st_rl_top" >
+
+        <TextView
+            android:id="@+id/tvActName"
+            style="@style/st_tv_header_act_name" />
+    </RelativeLayout>
+
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/rlBottomFake"
+        style="@style/st_rl_fake"
+        android:layout_below="@id/relTopHeader" >
+
+        <RelativeLayout
+            android:id="@+id/rlTopChildLayoutFake"
+            style="@style/st_rl_fake_middle"
+            android:layout_above="@+id/relBottomChildLayoutFake" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relBottomChildLayoutFake"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/relBottomPart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relTopHeader" >
+
+        <RelativeLayout
+            android:id="@+id/rlMiddleContent"
+            style="@style/st_rl_middle_content"
+            android:layout_above="@+id/rlBottomLine" >
+
+            <Button
+                android:id="@+id/btnGetVocabulariesList"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rounded_orange_button"
+                android:padding="10dp"
+                android:text="Get vocabularies from server"
+                android:textColor="@color/col_black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlBottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+
+            <TextView
+                android:id="@+id/tvVersionSHOW"
+                style="@style/st_tv_version" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

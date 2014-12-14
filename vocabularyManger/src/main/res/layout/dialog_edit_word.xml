@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="220dp"
+    android:background="@color/col_blue"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/tvDialogHeader"
+        style="@style/st_text_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/edtKey"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tvDialogHeader"
+        android:layout_marginTop="10dp" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/edtValue"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edtKey"
+        android:layout_marginTop="10dp" >
+    </EditText>
+
+    <RelativeLayout
+        android:id="@+id/rlButtons"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/edtValue"
+        android:layout_marginTop="2dp" >
+
+        <Button
+            android:id="@+id/btnPossitive"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/rounded_orange_button"
+            android:text="OK" >
+        </Button>
+
+        <Button
+            android:id="@+id/btnNegative"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/rounded_orange_button"
+            android:text="Cancel" >
+        </Button>
+    </RelativeLayout>
+
+</RelativeLayout>

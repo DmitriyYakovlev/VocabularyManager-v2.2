@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/st_rl_parent" >
+
+    <RelativeLayout
+        android:id="@+id/relTopHeader"
+        style="@style/st_rl_top" >
+
+        <TextView
+            android:id="@+id/tvActName"
+            style="@style/st_tv_header_act_name" />
+    </RelativeLayout>
+
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/rlBottomFake"
+        style="@style/st_rl_fake"
+        android:layout_below="@id/relTopHeader" >
+
+        <RelativeLayout
+            android:id="@+id/rlTopChildLayoutFake"
+            style="@style/st_rl_fake_middle"
+            android:layout_above="@+id/relBottomChildLayoutFake" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relBottomChildLayoutFake"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/relBottomPart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relTopHeader" >
+
+        <RelativeLayout
+            android:id="@+id/rlMiddleContent"
+            style="@style/st_rl_middle_content"
+            android:layout_above="@+id/rlBottomLine" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pagerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </android.support.v4.view.ViewPager>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlBottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicatorLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dm_testing_circle_indicator_margin_top"
+                android:padding="@dimen/dm_testing_circle_indicator_padding" >
+            </com.viewpagerindicator.CirclePageIndicator>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvPercentageGlobal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dm_testing_tv_percentage_margin_bottom"
+        android:textColor="@color/col_black"
+        android:textSize="@dimen/dm_testing_tv_percentage_text_size"
+        android:visibility="gone" />
+
+</RelativeLayout>

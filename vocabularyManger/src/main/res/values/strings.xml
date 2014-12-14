@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- FILE EXPLORER STRINGS -->
+    <string name="txt_cannot_read_folder">folder can not be read!</string>
+    <string name="txt_OK_allert">OK</string>
+    <string name="txt_Cancell_allert">Cancel</string>
+    <string name="txt_enter_name_for_new_file">Enter name for export file</string>
+    <string name="txt_exception_if_file_exist">File with such name is exist in current directory. Rewrite file ?</string>
+    <string name="txt_exception_if_file_name_is_null">File name is empty. Please, enter file name</string>
+    <string name="txt_exception_invalid_data_imported_file">Invalid data in file</string>
+    <string name="txt_exception_invalid_extention">Invalid extention name</string>
+    <string name="txt_explorer_save_btn">Export in this directory</string>
+    <!--  -->
+
+    <string name="app_name">Vocabulary manager</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="version_program_text_on_menu_activity">Vocabulary Manager 1.0</string>
+
+    <!-- headers for activities and dialogs -->
+    <string name="h_vocab_list">Vocabularies list</string>
+    <string name="h_edit_vocab">Edit vocabulary</string>
+    <string name="h_add_vocab_dialog">Please, enter new vocabulary information</string>
+    <string name="h_ask_question">Are you want save changes ?</string>
+    <string name="s_vocab_name">Vocabulary name</string>
+    <string name="s_vocab_description">Vocabulary description</string>
+    <string name="s_empty_list">No words in list</string>
+    <string name="s_empty_list_if_correct">All answers are correct</string>
+    <string name="s_select_way">Select the way of filling the dictionary</string>
+    <string name="s_select_testing_way">Select the way of testing</string>
+    <string name="s_select_waydd">From file</string>
+
+    <!-- result activity -->
+    <string name="txt_persentage">Percentage of correct answers : </string>
+    <string name="txt_corect_num">Number of correct answers : </string>
+    <string name="txt_go_to_menu">Go to main menu</string>
+    <string name="txt_wrong_answers">Wrong answers</string>
+    <string name="txt_stat_header">Test statistics</string>
+
+    <!-- exception -->
+    <string name="exc_empty_field">Please, enter vocabulary name</string>
+
+</resources>

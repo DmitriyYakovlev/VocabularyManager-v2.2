@@ -1,0 +1,127 @@
+<resources>
+
+    <style name="AppBaseTheme" parent="android:Theme.Light"></style>
+
+    <style name="AppTheme" parent="AppBaseTheme"></style>
+
+    <style name="st_rl_parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/books</item>
+    </style>
+
+    <style name="st_rl_top">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dm_top_rl_height</item>
+        <item name="android:background">@color/col_black</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <style name="st_tv_header_act_name">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/col_white</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/dm_top_rl_tv_left_margin</item>
+    </style>
+
+    <style name="st_tv_white">
+        <item name="android:textColor">@color/col_white</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">25dp</item>
+        <item name="android:text">@string/version_program_text_on_menu_activity</item>
+    </style>
+
+    <style name="st_text_white">
+        <item name="android:textColor">@color/col_white</item>
+        <item name="android:textSize">@dimen/dm_learn_adapter_item_text_size</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="st_text_white_menu">
+        <item name="android:textColor">@color/col_white</item>
+        <item name="android:textSize">@dimen/dm_main_act_menu_items_text_size</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="st_text_white_for_rezult">
+        <item name="android:textColor">@color/col_black</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="st_text_black">
+        <item name="android:textColor">@color/col_black</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="st_text_black_for_key">
+        <item name="android:textColor">@color/col_black</item>
+        <item name="android:textSize">@dimen/dm_testing_ch_one_left_text_size</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="st_tv_version">
+        <item name="android:textColor">@color/col_white</item>
+        <item name="android:textSize">@dimen/dm_tv_version_text_size</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/dm_tv_version_margin_left</item>
+        <item name="android:text">@string/version_program_text_on_menu_activity</item>
+    </style>
+
+    <style name="st_rl_middle_content">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/dm_dark_line_height</item>
+    </style>
+
+    <style name="st_rl_fake">
+        <item name="android:alpha">@dimen/dim_alpha_value_for_all_app</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/col_for_bottom_line</item>
+    </style>
+
+    <style name="st_rl_fake_middle">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/col_center_fon</item>
+        <item name="android:layout_marginTop">@dimen/dm_dark_line_height</item>
+    </style>
+
+    <style name="st_text_above_edt">
+        <item name="android:textColor">@color/col_white</item>
+        <item name="android:textSize">@dimen/dm_edit_vocab_name_text_size</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+</resources>

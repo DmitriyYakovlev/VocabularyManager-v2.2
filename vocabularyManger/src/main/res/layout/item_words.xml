@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dm_words_list_item_height" >
+
+    <LinearLayout
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/rlHolderTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvKey"
+                style="@style/st_text_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dm_words_item_margin" />
+
+            <ImageView
+                android:id="@+id/strelka"
+                android:layout_width="@dimen/dm_words_icons_size"
+                android:layout_height="@dimen/dm_words_icons_size"
+                android:layout_centerInParent="true"
+                android:background="@drawable/strelka" />
+
+            <TextView
+                android:id="@+id/tvVal"
+                style="@style/st_text_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dm_words_item_margin" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btnHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3" >
+
+            <Button
+                android:id="@+id/btnEditWord"
+                android:layout_width="@dimen/dm_words_icons_size"
+                android:layout_height="@dimen/dm_words_icons_size"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dm_words_margin_left"
+                android:background="@drawable/ic_edit" />
+
+            <Button
+                android:id="@+id/btnDeleteWord"
+                android:layout_width="@dimen/dm_words_icons_size"
+                android:layout_height="@dimen/dm_words_icons_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dm_words_margin_left"
+                android:background="@drawable/delete" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

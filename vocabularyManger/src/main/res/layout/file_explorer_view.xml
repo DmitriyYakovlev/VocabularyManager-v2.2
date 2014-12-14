@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrolAddEditActivity"
+        style="@style/st_explorer_scroll_v_path" >
+
+        <TextView
+            android:id="@+id/path"
+            style="@style/st_explorer_tv_row" >
+        </TextView>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnSaveInCurrentDirectory"
+            android:layout_alignParentTop="true" >
+        </ListView>
+
+        <Button
+            android:id="@id/btnSaveInCurrentDirectory"
+            style="@style/st_explorer_save_btn"
+            android:text="@string/txt_explorer_save_btn" />
+    </RelativeLayout>
+
+</LinearLayout>

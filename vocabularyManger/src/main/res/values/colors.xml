@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="col_blue">#009ae0 </color>
+    <color name="col_black">#000 </color>
+    <color name="col_dark_gray">#99a3b0   </color>
+    <color name="col_red">#e33939   </color>
+    <color name="col_white_gray">#29313d    </color>
+    <color name="col_white">#ffffff   </color>
+    <color name="col_aquamarine">#7FFFD4   </color>
+    <color name="col_cyan">#00FFFF   </color>
+    <color name="col_rosybrown_my">#BC8F8F   </color>
+    <color name="col_darkOliveGreen_my">#CAFF70   </color>
+    <color name="col_olive_my">#808000   </color>
+    <color name="col_show_button_fon">#1c3039   </color>
+    <color name="col_for_bottom_line">#51656e   </color>
+    <color name="col_header_fon">#dbd9da   </color>
+    <color name="col_center_fon">#698998   </color>
+    <color name="col_gray">#696969   </color>
+    <color name="col_light_gray">#f6f8fa   </color>
+    <color name="col_gray_middle">#E0E0E0   </color>
+    <color name="col_light_gray_text">#929292   </color>
+    <color name="col_red_dark">#B22222   </color>
+    <color name="col_gray_fon">#efeff4   </color>
+    <color name="col_gray_gainsboro">#DCDCDC   </color>
+    <color name="col_green">#00FF7F   </color>
+
+    <!-- colors for testing rounded buttons -->
+    <color name="col_green_dark">#006400   </color>
+    <color name="col_red_dark_test">#B22222   </color>
+    <color name="col_ligth_sea">#20B2AA   </color>
+    <color name="col_medium_sea">#3CB371   </color>
+    <color name="col_navajo_white2">#EECFA1   </color>
+    <color name="col_navajo_white3">#CDB38B   </color>
+
+</resources>

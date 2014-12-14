@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/st_rl_parent" >
+
+    <RelativeLayout
+        android:id="@+id/relTopHeader"
+        style="@style/st_rl_top" >
+
+        <TextView
+            android:id="@+id/tvActName"
+            style="@style/st_tv_header_act_name" />
+    </RelativeLayout>
+
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/rlBottomFake"
+        style="@style/st_rl_fake"
+        android:layout_below="@id/relTopHeader" >
+
+        <RelativeLayout
+            android:id="@+id/rlTopChildLayoutFake"
+            style="@style/st_rl_fake_middle"
+            android:layout_above="@+id/relBottomChildLayoutFake" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relBottomChildLayoutFake"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- ********************************************************************************************************** -->
+
+    <RelativeLayout
+        android:id="@+id/relBottomPart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relTopHeader" >
+
+        <RelativeLayout
+            android:id="@+id/rlMiddleContent"
+            style="@style/st_rl_middle_content"
+            android:padding="@dimen/dm_main_act_menu_items_padding"
+            android:layout_above="@+id/rlBottomLine" >
+
+            <TextView
+                android:id="@+id/tvTest"
+                style="@style/st_text_white_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_main_act_menu_items_margin_top_first"
+                android:text="Testing" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvLearn"
+                style="@style/st_text_white_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTest"
+                android:layout_marginTop="@dimen/dm_main_act_menu_items_margin_top_other"
+                android:text="Learning" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvEditVocabs"
+                style="@style/st_text_white_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLearn"
+                android:layout_marginTop="@dimen/dm_main_act_menu_items_margin_top_other"
+                android:text="Vocabularies list" >
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlBottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_dark_line_height"
+            android:layout_alignParentBottom="true" >
+
+            <TextView
+                android:id="@+id/tvVersionSHOW"
+                style="@style/st_tv_version" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

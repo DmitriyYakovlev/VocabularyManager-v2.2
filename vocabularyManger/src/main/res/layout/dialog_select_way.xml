@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/col_blue"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/tvDialogHeader"
+        style="@style/st_text_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/btnLayoutHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDialogHeader"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/rlButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btnFromFile"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/rounded_orange_button"
+                android:text="From file"
+                android:textSize="20sp" >
+            </Button>
+
+            <Button
+                android:id="@+id/btnByHand"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/btnFromFile"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_orange_button"
+                android:text="By hand"
+                android:textSize="20sp" >
+            </Button>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlButtonsRight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btnFromServer"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/rounded_orange_button"
+                android:text="From server"
+                android:textSize="20sp" >
+            </Button>
+
+            <Button
+                android:id="@+id/btnFromHolder"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/btnFromServer"
+                android:enabled="false"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_orange_button"
+                android:text="From holder"
+                android:textSize="20sp" >
+            </Button>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
