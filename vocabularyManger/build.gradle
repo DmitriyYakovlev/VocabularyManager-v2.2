@@ -9,13 +9,6 @@ android {
         minSdkVersion 11
         targetSdkVersion 18
     }
-
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
-    }
 }
 
 dependencies {
