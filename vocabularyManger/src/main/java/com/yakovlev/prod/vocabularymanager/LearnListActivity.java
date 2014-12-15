@@ -19,6 +19,7 @@ public class LearnListActivity extends BaseListActivity {
 		return R.layout.activity_learn_list;
 	}
 
+
 	@Override
 	public CursorAdapter setCursorAdapter(Cursor cursor) {
 		adapter = new LearnWordsCursorAdapter(this, cursor);
@@ -31,7 +32,7 @@ public class LearnListActivity extends BaseListActivity {
 
 	@Override
 	public void onClick(View v) {
-
+        int i;
 	}
 
 	@Override
