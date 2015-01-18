@@ -2,6 +2,11 @@
 
     <!-- VALUES DEFAULT -->
 
+    <!--BLOCK 1-->
+    <dimen name="dm_activity_header_text_size">28sp</dimen>
+    <dimen name="dm_activity_header_margin_top">5dp</dimen>
+    <!--End BLOCK 1-->
+
     <!-- dialog select way of testing-->
     <dimen name="dm_dialog_select_way_of_testing_padding">10dp</dimen>
     <dimen name="dm_dialog_select_way_of_testing_header_title">28sp</dimen>

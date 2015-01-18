@@ -2,6 +2,12 @@
 
     <!-- VALUES (... to 4'') 320dp: a typical phone screen (240x320 ldpi, 320x480 mdpi, 480x800 hdpi, etc). -->
 
+
+    <!--BLOCK 1-->
+    <dimen name="dm_activity_header_text_size">20sp</dimen>
+    <dimen name="dm_activity_header_margin_top">5dp</dimen>
+    <!--End BLOCK 1-->
+
     <!-- dialog select way of testing-->
     <dimen name="dm_dialog_select_way_of_testing_padding">3dp</dimen>
     <dimen name="dm_dialog_select_way_of_testing_header_title">18sp</dimen>
@@ -56,10 +62,10 @@
     <dimen name="dm_tv_version_margin_left">25dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="dm_iv_size">50dp</dimen>
-    <dimen name="dm_iv_margin">10dp</dimen>
+    <dimen name="dm_iv_size">35dp</dimen>
+    <dimen name="dm_iv_margin">3dp</dimen>
     <dimen name="dm_top_rl_height">40dp</dimen>
-    <dimen name="dm_top_rl_tv_left_margin">50dp</dimen>
+    <dimen name="dm_top_rl_tv_left_margin">20dp</dimen>
     <dimen name="dm_dark_line_height">35dp</dimen>
 
     <!-- FILE EXPLORER -->

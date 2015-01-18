@@ -30,7 +30,7 @@ public class LearnListActivity extends BaseListActivity {
 	public void onItemClickWork(int id) {
 	}
 
-    
+
 	@Override
 	public void onClick(View v) {
         int i;

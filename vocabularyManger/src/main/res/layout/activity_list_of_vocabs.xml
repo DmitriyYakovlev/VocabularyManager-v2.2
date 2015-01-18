@@ -21,6 +21,16 @@
         android:background="@drawable/add_vocab" >
     </ImageButton>
 
+    <ImageButton
+        android:id="@+id/imgLoadAllFromFolder"
+        android:layout_width="@dimen/dm_iv_size"
+        android:layout_height="@dimen/dm_iv_size"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/imgAddVocab"
+        android:layout_margin="@dimen/dm_iv_margin"
+        android:background="@drawable/ic_load_all_from_folder">
+    </ImageButton>
+
     <!-- ********************************************************************************************************** -->
 
     <RelativeLayout

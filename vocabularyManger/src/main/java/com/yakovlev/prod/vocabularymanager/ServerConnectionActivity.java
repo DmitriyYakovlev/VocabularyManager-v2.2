@@ -1,8 +1,6 @@
 package com.yakovlev.prod.vocabularymanager;
 
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.yakovlev.prod.vocabularymanager.asynk_tasks.ConectionCallback;
@@ -10,7 +8,7 @@ import com.yakovlev.prod.vocabularymanager.asynk_tasks.GetVocabularyListAT;
 import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
 import com.yakovlev.prod.vocabularymanager.dialogs.OnItemClickCallback;
 import com.yakovlev.prod.vocabularymanager.ormlite.Vocabulary;
-import com.yakovlev.prod.vocabularymanager.support.ProgressBarHelper;
+import com.yakovlev.prod.vocabularymanager.support.ProgressBarHellper;
 import com.yakovlev.prod.vocabularymanger.R;
 
 import android.app.Activity;
@@ -49,19 +47,19 @@ public class ServerConnectionActivity extends Activity implements ConectionCallb
 
 	@Override
 	public void beforeConect() {
-		progressDialog = ProgressBarHelper.startProgressBar(progressDialog, this, canselListner);
+		progressDialog = ProgressBarHellper.startProgressBar(progressDialog, this, canselListner);
 	}
 
 	OnCancelListener canselListner = new OnCancelListener() {
 		@Override
 		public void onCancel(DialogInterface dialog) {
-			ProgressBarHelper.stopProgressBar(progressDialog);
+			ProgressBarHellper.stopProgressBar(progressDialog);
 		}
 	};
 	
 	@Override
 	public void afterConect(List<Vocabulary> vocabList) {
-		ProgressBarHelper.stopProgressBar(progressDialog);
+		ProgressBarHellper.stopProgressBar(progressDialog);
 		
 		if (vocabList == null || vocabList.size() == 0)
 			return;

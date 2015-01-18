@@ -24,12 +24,13 @@ public class FileExplorerActivity extends Activity implements IFolderItemListene
 
 	private FolderLayout localFolders;
 	private static String pathToDirectory;
-	int isForExportOpened, isForImportOpened;
+	int isForExportOpened, isForImportOpened, intentExtra;
 	String pathToFolder = null;
 	String newFileName = null;
 	private Button btnExportInCurrentDirectory;
 	public static String PATH_TO_DIRECTORY_AND_FILE_NAME = "path_export";
 	public static boolean isForImportBuckUpStarted = false;
+    public boolean isForDirectorySelectionOpened = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,12 @@ public class FileExplorerActivity extends Activity implements IFolderItemListene
 		if (isForImportOpened != -1) {
 			isForImportBuckUpStarted = true;
 		}
+        intentExtra = intent.getIntExtra(Const.GETTING_DIRECTORY, -1);
+        if (intentExtra != -1){
+            isForDirectorySelectionOpened= true;
+            btnExportInCurrentDirectory.setVisibility(View.VISIBLE);
+            btnExportInCurrentDirectory.setText("Import all from this directory");
+        }
 	}
 
 	@Override
@@ -73,7 +80,7 @@ public class FileExplorerActivity extends Activity implements IFolderItemListene
 
 	@Override
 	public void OnFileClicked(File file) {
-		if (isForExportOpened == -1) {
+		if (isForExportOpened == -1 && !isForDirectorySelectionOpened ) {
 			IntentHelper.sendIntentFromExplorer(file.getAbsolutePath(), PATH_TO_DIRECTORY_AND_FILE_NAME, this);
 			finish();
 		}
@@ -88,12 +95,25 @@ public class FileExplorerActivity extends Activity implements IFolderItemListene
 
 		switch (v.getId()) {
 		case R.id.btnSaveInCurrentDirectory:
-			openADSaveFile(this);
+            processBtnPress();
 			break;
 		default:
 			break;
 		}
 	}
+
+    private void processBtnPress(){
+        if(isForDirectorySelectionOpened)
+        {
+            String directory = localFolders.getPathFromFolderLayout();
+                IntentHelper.sendIntentFromExplorer(directory, PATH_TO_DIRECTORY_AND_FILE_NAME, this);
+                finish();
+
+        }
+        else
+            openADSaveFile(this);
+
+    }
 
 	private void openADSaveFile(final Context cont) {
 

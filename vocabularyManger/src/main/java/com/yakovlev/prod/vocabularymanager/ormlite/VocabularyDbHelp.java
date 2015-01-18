@@ -1,6 +1,7 @@
 package com.yakovlev.prod.vocabularymanager.ormlite;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import android.database.Cursor;
 
@@ -12,11 +13,14 @@ import com.yakovlev.prod.vocabularymanager.VocabulariesListActivity;
 
 public class VocabularyDbHelp {
 
-	public void addVocabulary(Vocabulary vocabulary, RuntimeExceptionDao<Vocabulary, Integer> simpleDao) {
+	public static void addVocabulary(Vocabulary vocabulary, RuntimeExceptionDao<Vocabulary, Integer> simpleDao) {
 		simpleDao.create(vocabulary);
 	}
 
-	
+    public List<Vocabulary> getAllVocabs( RuntimeExceptionDao<Vocabulary, Integer> simpleDao) {
+        List<Vocabulary> allVocabs = simpleDao.queryForAll();
+        return allVocabs;
+    }
 	
 
 

@@ -27,6 +27,18 @@ public class IntentHelper {
 		((Activity) context).startActivityForResult(intent, Const.REQUEST_CODE_FOR_IMPORT);
 	}
 
+    public static void openFileExplorerForChoiceDirectory(Context context) {
+        Intent intent = new Intent(context, FileExplorerActivity.class);
+        intent.putExtra(Const.GETTING_DIRECTORY, 1);
+        ((Activity) context).startActivityForResult(intent, Const.REQUEST_CODE_FOR_DIRECTORY_SELECTION);
+    }
+
+    public static void openFileExplorerForExport(Context context) {
+        Intent intent = new Intent(context, FileExplorerActivity.class);
+        intent.putExtra(Const.GETTING_FILE_FROM_FILE_EX, 1);
+        ((Activity) context).startActivityForResult(intent, Const.REQUEST_CODE_FOR_EXPORT);
+    }
+
 	public static void sendIntentFromExplorer(String pathForSendResult, String key, Context context) {
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(key, pathForSendResult);

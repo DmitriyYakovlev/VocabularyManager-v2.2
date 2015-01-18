@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.codevog.android.mobileorder.R;
-import com.codevog.android.mobileorder.local_network_support.Server;
-import com.codevog.android.mobileorder.support_code.ProgressBarHellper;
-import com.codevog.android.mobileorder.support_code.ToastHelper;
-import com.codevog.android.mobileorder.ui.file_explorer.FileWorkSupport;
+import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
+import com.yakovlev.prod.vocabularymanager.ormlite.Vocabulary;
+import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
+import com.yakovlev.prod.vocabularymanager.support.FileHelper;
+import com.yakovlev.prod.vocabularymanager.support.ProgressBarHellper;
+import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
+import java.util.List;
+
 
 public class ExportFullBackUpInJsonAT extends AsyncTask<Void, Void, Void> {
 
@@ -31,15 +34,28 @@ public class ExportFullBackUpInJsonAT extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            String json = Server.createJSONForFullExport(context);
-            FileWorkSupport.saveStringInFile(json, pathToFile);
-            ToastHelper.doInUIThread(context.getString(R.string.txt_toast_full_back_compl) , context);
+            ExportVocabulariesContainer exportVocabulariesContainer = new ExportVocabulariesContainer();
+
+            DatabaseHelper dbHelper = new DatabaseHelper(context);
+            List<Vocabulary> allVocabsList = dbHelper.getVocabularyRuntimeDataDao().queryForAll();
+            Vocabulary[] vocabularies = allVocabsList.toArray(new Vocabulary[allVocabsList.size()]);
+
+            List<WordTable> allWordsList = dbHelper.getWordsRuntimeDataDao().queryForAll();
+            WordTable[] words = allWordsList.toArray(new WordTable[allWordsList.size()]);
+
+            exportVocabulariesContainer.setAllVocabs(vocabularies);
+            exportVocabulariesContainer.setAllWords(words);
+
+            String json = exportVocabulariesContainer.toJson();
+            FileHelper.saveStringInFile(json, pathToFile);
+            ToastHelper.doInUIThread("Full back up completed successfully" , context);
         } catch (Exception ex) {
-            ToastHelper.doInUIThread(context.getString(R.string.txt_toast_full_back_error), context);
+            ToastHelper.doInUIThread("Full back up exception", context);
+        } catch (Error error){
+            ToastHelper.doInUIThread("Full back up error", context);
         }
         return null;
     }
-
 
     @Override
     protected void onPostExecute(Void integer) {

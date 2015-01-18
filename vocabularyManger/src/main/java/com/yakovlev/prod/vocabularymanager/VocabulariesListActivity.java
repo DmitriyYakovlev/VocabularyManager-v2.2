@@ -1,6 +1,9 @@
 package com.yakovlev.prod.vocabularymanager;
 
+import java.io.File;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import com.yakovlev.prod.vocabularymanager.adapters.VocabCursorAdapter;
 import com.yakovlev.prod.vocabularymanager.constants.Const;
@@ -8,10 +11,13 @@ import com.yakovlev.prod.vocabularymanager.cursor_loaders.VocabulariesCursorLoad
 import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
 import com.yakovlev.prod.vocabularymanager.dialogs.DialogButtonsCallback;
 import com.yakovlev.prod.vocabularymanager.dialogs.DialogPositiveBtnCallBack;
+import com.yakovlev.prod.vocabularymanager.file_explorer.FileExplorerActivity;
+import com.yakovlev.prod.vocabularymanager.file_explorer.FileWorkHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.Vocabulary;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
 import com.yakovlev.prod.vocabularymanager.support.IntentHelper;
+import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
 import android.content.Intent;
@@ -33,7 +39,7 @@ public class VocabulariesListActivity extends FragmentActivity implements Loader
 	// views
 	private ListView lvVocabs;
 	private TextView tvHeader;
-	private ImageButton ibtnAddVocab;
+	private ImageButton ibtnAddVocab, imBtnLoadAllFromFolder;
 
 	private VocabCursorAdapter vocabCursorAdapter;
 
@@ -51,11 +57,13 @@ public class VocabulariesListActivity extends FragmentActivity implements Loader
 	private void findViews() {
 		tvHeader = (TextView) findViewById(R.id.tvActName);
 		ibtnAddVocab = (ImageButton) findViewById(R.id.imgAddVocab);
+        imBtnLoadAllFromFolder = (ImageButton) findViewById(R.id.imgLoadAllFromFolder);
 		tvHeader.setText("Vocabularies list");
 	}
 
 	private void setOnClickListeners() {
 		ibtnAddVocab.setOnClickListener(this);
+        imBtnLoadAllFromFolder.setOnClickListener(this);
 	}
 
 	@Override
@@ -79,26 +87,78 @@ public class VocabulariesListActivity extends FragmentActivity implements Loader
 		}
 	};
 
-	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-		super.onActivityResult(arg0, arg1, arg2);
-		getSupportLoaderManager().restartLoader(0, null, this);
-	};
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            String pathFromFileExp = data.getStringExtra(FileExplorerActivity.PATH_TO_DIRECTORY_AND_FILE_NAME);
+            if (requestCode == Const.REQUEST_CODE_FOR_DIRECTORY_SELECTION) {
+                safeDirectoryWithVocabsProcessing(pathFromFileExp);
+            }
+        }
+        getSupportLoaderManager().restartLoader(0, null, this);
+    }
+
+    private void safeDirectoryWithVocabsProcessing(String pathFromFileExp){
+        try {
+            processFilesFromDirectoryAfterSelection(pathFromFileExp);
+        }
+        catch (Exception ex){
+            ToastHelper.doInUIThread(ex.toString(), this);
+        }
+    }
+
+    private void processFilesFromDirectoryAfterSelection(String pathToDirectory) {
+        File folder = new File(pathToDirectory);
+        File[] listOfFiles = folder.listFiles();
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        if (listOfFiles.length > 0) {
+            int countWords = 0;
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile()) {
+
+                    String fileName = listOfFiles[i].getName();
+                    String nameWithOutExtension = fileName.substring(0, fileName.lastIndexOf('.'));
+
+                    Vocabulary vocabulary = new Vocabulary(nameWithOutExtension, "", 1, new Date(), new Date());
+                    dbHelper.getVocabularyRuntimeDataDao().create(vocabulary);
+
+                    String pathWithFileName = pathToDirectory + "/" +nameWithOutExtension + "." + Const.EXTENTION_EXD;
+                    List<WordTable> wordList = FileWorkHelper.parseVocabFile(pathWithFileName , vocabulary.getId());
+                    for (int j = 0; j < wordList.size(); j++) {
+                        dbHelper.getWordsRuntimeDataDao().create(wordList.get(j));
+                        countWords++;
+                    }
+                }
+            }
+            ToastHelper.doInUIThread("Imported " + Integer.toString(countWords) + " words", this);
+        }
+    }
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 	}
 
-	@Override
-	public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
 
-		switch (v.getId()) {
-		case R.id.imgAddVocab:
-			openAddEditVocabActivity();
-			break;
-		default:
-			break;
-		}
-	}
+        switch (v.getId()) {
+            case R.id.imgAddVocab:
+                openAddEditVocabActivity();
+                break;
+            case R.id.imgLoadAllFromFolder:
+                openFileExplorerForSelectingDirectoryWithVocabs();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void openFileExplorerForSelectingDirectoryWithVocabs(){
+        IntentHelper.openFileExplorerForChoiceDirectory(this);
+    }
 
 	private void openAddEditVocabActivity() {
 		AlertDialogsHolder.openCreateVocabularyDialog(this, this);

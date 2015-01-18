@@ -1,34 +1,37 @@
 package com.yakovlev.prod.vocabularymanager.ormlite;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 
-public class Vocabulary {
+public class Vocabulary implements Serializable{
 
 	@DatabaseField(generatedId = true, columnName = "_id")
 	@SerializedName("voc_id")
 	private int id;
 	
 	@DatabaseField(index = true)
-	@SerializedName("voc_id")
+	@SerializedName("voc_name")
 	private String vName;
 	
 	@DatabaseField
-	@SerializedName("voc_id")
+	@SerializedName("voc_desc")
 	private String vDescription;
 	
 	@DatabaseField
-	@SerializedName("voc_id")
+	@SerializedName("voc_author_id")
 	private int authorId;
 	
 	@DatabaseField
-	@SerializedName("voc_id")
+	@SerializedName("voc_date")
 	private Date date;
 	
 	@DatabaseField
-	private Date lastModdate;
+    @SerializedName("voc_last_mode_date")
+    private Date lastModdate;
 	
 	public Vocabulary() { 	}
 
@@ -96,4 +99,14 @@ public class Vocabulary {
 	public void setLastModdate(Date lastModdate) {
 		this.lastModdate = lastModdate;
 	}
+
+    public String toJson(){
+        return new Gson().toJson(this);
+    }
+
+    public static Vocabulary fromJson(String jsonString){
+        Vocabulary wordTable = new Gson().fromJson(jsonString, Vocabulary.class);
+        return wordTable;
+    }
+
 }

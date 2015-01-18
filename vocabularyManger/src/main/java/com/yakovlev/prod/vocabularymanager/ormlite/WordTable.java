@@ -1,20 +1,27 @@
 package com.yakovlev.prod.vocabularymanager.ormlite;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 
-public class WordTable {
+import java.io.Serializable;
+
+public class WordTable implements Serializable{
 
 	@DatabaseField(generatedId = true, columnName = "_id")
-	private int id;
+    private int id;
 
 	@DatabaseField(index = true)
+    @SerializedName("key")
 	private String wKey;
 
 	@DatabaseField
-	private String wValue;
+    @SerializedName("value")
+    private String wValue;
 
 	@DatabaseField
-	private int vocabularyId;
+    @SerializedName("vocab_id")
+    private int vocabularyId;
 
 	public WordTable() { }
 
@@ -59,4 +66,14 @@ public class WordTable {
 	public void setVocabularyId(int vocabularyId) {
 		this.vocabularyId = vocabularyId;
 	}
+
+    public String toJson(){
+        return new Gson().toJson(this);
+    }
+
+    public static WordTable fromJson(String jsonString){
+        WordTable wordTable = new Gson().fromJson(jsonString, WordTable.class);
+        return wordTable;
+    }
+
 }

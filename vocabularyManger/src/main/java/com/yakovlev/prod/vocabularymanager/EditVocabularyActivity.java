@@ -102,7 +102,7 @@ public class EditVocabularyActivity extends Activity implements OnClickListener,
 			if (requestCode == Const.REQUEST_CODE_FOR_IMPORT) {
 				
 				if (FileWorkHelper.isExtentionFalse(pathFromFileExp, "txt")){
-					ToastHelper.useLongToast(EditVocabularyActivity.this, "Invalid extention name");
+					ToastHelper.useLongToast(EditVocabularyActivity.this, "Invalid extension name");
 					return;
 				}
 					
