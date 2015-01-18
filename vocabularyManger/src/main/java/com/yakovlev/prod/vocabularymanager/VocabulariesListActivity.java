@@ -92,8 +92,8 @@ public class VocabulariesListActivity extends FragmentActivity implements Loader
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_CANCELED) {
-            String pathFromFileExp = data.getStringExtra(FileExplorerActivity.PATH_TO_DIRECTORY_AND_FILE_NAME);
             if (requestCode == Const.REQUEST_CODE_FOR_DIRECTORY_SELECTION) {
+                String pathFromFileExp = data.getStringExtra(FileExplorerActivity.PATH_TO_DIRECTORY_AND_FILE_NAME);
                 safeDirectoryWithVocabsProcessing(pathFromFileExp);
             }
         }

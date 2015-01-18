@@ -12,15 +12,15 @@
             android:id="@+id/tvActName"
             style="@style/st_tv_header_act_name" />
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/imgBtnSwitch"-->
-            <!--android:layout_width="@dimen/dm_iv_size"-->
-            <!--android:layout_height="@dimen/dm_iv_size"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_margin="@dimen/dm_iv_margin"-->
-            <!--android:background="@drawable/ic_switcher">-->
-        <!--</ImageButton>-->
+        <ImageButton
+            android:id="@+id/imgBtnSwitch"
+            android:layout_width="@dimen/dm_iv_size"
+            android:layout_height="@dimen/dm_iv_size"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/dm_iv_margin"
+            android:background="@drawable/ic_switcher">
+        </ImageButton>
 
     </RelativeLayout>
 

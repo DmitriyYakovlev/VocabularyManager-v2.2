@@ -255,7 +255,9 @@ public class EditVocabularyActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onBackPressed() {
-		AlertDialogsHolder.openAskDialog(this, getString(R.string.h_ask_question), dlgAsk);
-	}
+//		AlertDialogsHolder.openAskDialog(this, getString(R.string.h_ask_question), dlgAsk);
+        getDataForSave();
+
+    }
 
 }

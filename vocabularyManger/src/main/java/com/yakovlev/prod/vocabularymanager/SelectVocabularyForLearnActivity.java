@@ -9,18 +9,24 @@ import android.view.View;
 import com.yakovlev.prod.vocabularymanager.adapters.SimpleVocabCursorAdapter;
 import com.yakovlev.prod.vocabularymanager.constants.Const;
 import com.yakovlev.prod.vocabularymanager.cursor_loaders.VocabulariesCursorLoader;
+import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
 public class SelectVocabularyForLearnActivity  extends BaseListActivity  {
 
-	@Override
+    private int vocabulariesCount;
+
+    @Override
 	public int setContentView() {
 		return R.layout.activity_learn_list;
 	}
 
 	@Override
 	public CursorAdapter setCursorAdapter(Cursor cursor) {
-		return new SimpleVocabCursorAdapter(this, cursor);
+        SimpleVocabCursorAdapter adapter =  new SimpleVocabCursorAdapter(this, cursor);
+        vocabulariesCount = adapter.getCount();
+        ToastHelper.doInUIThread("Vocabularies count : " + Integer.toString(vocabulariesCount), this);
+		return adapter;
 	}
 
 

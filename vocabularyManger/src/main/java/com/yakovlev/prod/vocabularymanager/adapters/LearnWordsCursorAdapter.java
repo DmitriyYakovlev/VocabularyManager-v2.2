@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
 	private LayoutInflater inflater;
 	private TextView tvKey, tvValue;
 	public Set<Integer> checkedItemsList = new HashSet<Integer>();
-
+    private boolean hideRightSide = true;
 	
 	public LearnWordsCursorAdapter(Context context, Cursor cursor) {
 		super(context, cursor);
@@ -40,29 +41,64 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
 		tvKey.setText(key);
 		tvValue.setText(value);
 
-		final View hideView =  (View) view.findViewById(R.id.hideView);
+		final View viewRightHide =  (View) view.findViewById(R.id.hideViewRight);
+		final View viewLeftHide =  (View) view.findViewById(R.id.hideViewLeft);
 
-		if (checkedItemsList.contains(id))
-			hideView.setVisibility(View.INVISIBLE);
-		else
-			hideView.setVisibility(View.VISIBLE);
+		if (checkedItemsList.contains(id)) {
+            setVisibilityForLeftHideViewAndRightHideView(viewLeftHide, viewRightHide, View.GONE, View.GONE);
+        }
+		else {
+            if (hideRightSide)
+                setVisibilityForLeftHideViewAndRightHideView(viewLeftHide, viewRightHide, View.GONE, View.VISIBLE);
+            else
+                setVisibilityForLeftHideViewAndRightHideView(viewLeftHide, viewRightHide, View.VISIBLE, View.GONE);
+        }
 		
-		RelativeLayout rightRl = (RelativeLayout) view.findViewById(R.id.rlRightHolder);
-		rightRl.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (hideView.getVisibility() == View.VISIBLE){
-					hideView.setVisibility(View.INVISIBLE);
-					checkedItemsList.add(id);
-				}
-				else{
-					hideView.setVisibility(View.VISIBLE);
-					checkedItemsList.remove(id);
-				}
-			}
-		});
+		LinearLayout itemParent = (LinearLayout) view.findViewById(R.id.itemWordLearn);
+		itemParent.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                processLinearLayoutProcessing(viewLeftHide, viewRightHide, id);
+            }
+        });
 	}
+
+    private void processLinearLayoutProcessing(View viewLeftHide, View viewRightHide, int id){
+        if (hideRightSide) {
+            if (viewRightHide.getVisibility() == View.VISIBLE)
+                setVisibilityForLeftHideViewAndRightHideView(viewLeftHide, viewRightHide, View.GONE, View.GONE);
+            else
+                setVisibilityForLeftHideViewAndRightHideView(viewLeftHide, viewRightHide, View.GONE, View.VISIBLE);
+        }
+        else {
+            if (viewLeftHide.getVisibility() == View.VISIBLE)
+                setVisibilityForLeftHideViewAndRightHideView(viewLeftHide, viewRightHide, View.GONE, View.GONE);
+            else
+                setVisibilityForLeftHideViewAndRightHideView(viewLeftHide, viewRightHide, View.VISIBLE, View.GONE);
+        }
+        processCheckedItemList(id);
+    }
+
+    private void setVisibilityForLeftHideViewAndRightHideView(View viewLeftHide, View viewRightHide, int leftVisibility, int rightVisibility){
+        viewLeftHide.setVisibility(leftVisibility);
+        viewRightHide.setVisibility(rightVisibility);
+    }
+
+    private void processCheckedItemList(int id){
+        if (checkedItemsList.contains(id))
+            checkedItemsList.remove(id);
+        else
+            checkedItemsList.add(id);
+    }
+
+    public void changeSwitcher(){
+        if (hideRightSide)
+            hideRightSide = false;
+        else
+            hideRightSide = true;
+        notifyDataSetChanged();
+    }
 
 	public static String getFirstNSymbols(String s, int n){
 		return s.substring(0, Math.min(s.length(), n));

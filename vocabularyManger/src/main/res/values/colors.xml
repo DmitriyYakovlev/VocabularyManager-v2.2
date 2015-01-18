@@ -2,6 +2,7 @@
 <resources>
 
     <color name="col_blue">#009ae0 </color>
+    <color name="col_orange">#FF7F00 </color>
     <color name="col_black">#000 </color>
     <color name="col_dark_gray">#99a3b0   </color>
     <color name="col_red">#e33939   </color>
