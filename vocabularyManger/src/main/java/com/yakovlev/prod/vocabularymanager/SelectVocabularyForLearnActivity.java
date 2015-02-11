@@ -15,6 +15,7 @@ import com.yakovlev.prod.vocabularymanger.R;
 public class SelectVocabularyForLearnActivity  extends BaseListActivity  {
 
     private int vocabulariesCount;
+    
 
     @Override
 	public int setContentView() {
