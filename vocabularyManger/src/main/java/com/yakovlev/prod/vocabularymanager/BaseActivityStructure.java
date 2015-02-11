@@ -13,7 +13,7 @@ public interface BaseActivityStructure extends OnClickListener{
 	public void onClick(View v);
 	
 	/*
-		switch (v.getId()) {
+		switch (v.getVocabularyId()) {
 		case R.id.tvLearn:
 			break;
 		case R.id.tvEditVocabs:

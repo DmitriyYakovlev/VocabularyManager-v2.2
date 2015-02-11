@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.yakovlev.prod.vocabularymanager.adapters.LearnWordsCursorAdapter;
-import com.yakovlev.prod.vocabularymanager.adapters.SimpleVocabCursorAdapter;
 import com.yakovlev.prod.vocabularymanager.cursor_loaders.WordsCursorLoader;
+import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
 public class LearnListActivity extends BaseListActivity {
@@ -31,6 +31,9 @@ public class LearnListActivity extends BaseListActivity {
     @Override
 	public CursorAdapter setCursorAdapter(Cursor cursor) {
 		adapter = new LearnWordsCursorAdapter(this, cursor);
+        int wordsCount = adapter.getCount();
+        String message = "Number of words in vocabulary : " + Integer.toString(wordsCount);
+        ToastHelper.doInUIThread(message, this);
 		return adapter;
 	}
 
@@ -55,7 +58,7 @@ public class LearnListActivity extends BaseListActivity {
 
 	@Override
 	public CursorLoader setCursorLoader() {
-		return new WordsCursorLoader(getId(), this);
+		return new WordsCursorLoader(getVocabularyId(), this);
 	}
 
 }

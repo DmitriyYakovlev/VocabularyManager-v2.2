@@ -1,6 +1,9 @@
 package com.yakovlev.prod.vocabularymanager;
 
 import com.yakovlev.prod.vocabularymanager.constants.Const;
+import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
+import com.yakovlev.prod.vocabularymanager.dialogs.DialogAskCallback;
+import com.yakovlev.prod.vocabularymanager.support.SharedPreferencesHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,11 +20,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public abstract class BaseListActivity extends FragmentActivity implements
-		BaseActivityStructure, LoaderCallbacks<Cursor> {
+		BaseActivityStructure, LoaderCallbacks<Cursor>, DialogAskCallback {
 
 	private ListView listContent;
 	private TextView tvHeader;
-	private int id;
+	private int vocabularyId;
 	private CursorAdapter baseCursorAdapter;
 
 	@Override
@@ -29,19 +32,55 @@ public abstract class BaseListActivity extends FragmentActivity implements
 		super.onCreate(arg0);
 		setContentView(setContentView());
 
-		Intent intent = getIntent();
-		id = intent.getIntExtra(Const.VOCAB_ID, -1);
 
-		findAllViews();
-		setOnClickListeners();
-		tvHeader.setText(setActivityHeader());
+        Intent intent = getIntent();
+        vocabularyId = intent.getIntExtra(Const.VOCAB_ID, -1);
 
-		listContent = (ListView) findViewById(R.id.lvVocabs);
-		getSupportLoaderManager().initLoader(0, null, this);
+        processLastVocabularyIdFromPreferences(vocabularyId);
+
+        findAllViews();
+        setOnClickListeners();
+        tvHeader.setText(setActivityHeader());
+
+        listContent = (ListView) findViewById(R.id.lvVocabs);
+        getSupportLoaderManager().initLoader(0, null, this);
 	}
 
-	public int getId() {
-		return id;
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (baseCursorAdapter != null) {
+            baseCursorAdapter.notifyDataSetChanged();
+            listContent.refreshDrawableState();
+        }
+    }
+
+    private int lastVocabularyId;
+    private void processLastVocabularyIdFromPreferences(int vocabularyId) {
+        if (vocabularyId != -1 ){
+            SharedPreferencesHelper.saveNumberInSharedPreferences(vocabularyId, this, SharedPreferencesHelper.KEY_LAST_USED_VOCABULARY_ID);
+        }
+        else 
+        {
+            lastVocabularyId = SharedPreferencesHelper.loadNumberFromSharedPreferences(this, SharedPreferencesHelper.KEY_LAST_USED_VOCABULARY_ID);
+            if (lastVocabularyId != -1 && lastVocabularyId != vocabularyId)
+                AlertDialogsHolder.openAskDialog(this, "Restart last vocabulary ?", this);
+        }
+    }
+
+    @Override
+    public void onNegativeAskButtonPress() {
+
+    }
+
+    @Override
+    public void onPossitiveAskButtonPress() {
+        onItemClickWork(lastVocabularyId);
+    }
+
+    public int getVocabularyId() {
+		return vocabularyId;
 	}
 
 	@Override
@@ -88,6 +127,7 @@ public abstract class BaseListActivity extends FragmentActivity implements
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
 		getSupportLoaderManager().restartLoader(0, null, this);
+        baseCursorAdapter.notifyDataSetChanged();
 	};
 
 	@Override
