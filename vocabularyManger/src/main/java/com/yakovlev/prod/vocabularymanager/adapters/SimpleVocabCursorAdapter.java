@@ -36,12 +36,10 @@ public class SimpleVocabCursorAdapter extends CursorAdapter{
         this.lastVocabId = SharedPreferencesHelper.loadNumberFromSharedPreferences(context, SharedPreferencesHelper.KEY_LAST_USED_VOCABULARY_ID);
         LinearLayout llParent = (LinearLayout)view.findViewById(R.id.itemWordLearn);
         int idNum = Integer.parseInt(id);
-        if (idNum == lastVocabId){
+        if (idNum == lastVocabId)
             llParent.setBackgroundColor(context.getResources().getColor(R.color.col_red_dark));
-        }
         else
             llParent.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-
 
         tvName = (TextView) view.findViewById(R.id.tvVocabName);
 		tvDescription = (TextView) view.findViewById(R.id.tvVocabDesc);
