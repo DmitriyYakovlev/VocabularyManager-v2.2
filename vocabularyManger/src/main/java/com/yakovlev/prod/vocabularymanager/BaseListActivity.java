@@ -32,7 +32,6 @@ public abstract class BaseListActivity extends FragmentActivity implements
 		super.onCreate(arg0);
 		setContentView(setContentView());
 
-
         Intent intent = getIntent();
         vocabularyId = intent.getIntExtra(Const.VOCAB_ID, -1);
 

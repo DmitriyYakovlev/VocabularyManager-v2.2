@@ -222,9 +222,13 @@ public class EditVocabularyActivity extends Activity implements OnClickListener,
 	private void saveWordInVocabulary(WordTable wTable) {
 		try {
 			wTable.setVocabularyId(vocabIdForEdit);
+            wTable.setwTranscription("trans");
+            wTable.setWordStatus(1);
 			dbHelper = new DatabaseHelper(this);
 			wordsDao = dbHelper.getWordDao();
+
 			wordsDao.create(wTable);
+
 			setWordsInfo(curentVocabulary.getId());
 		} catch (SQLException e) {
 			e.printStackTrace();

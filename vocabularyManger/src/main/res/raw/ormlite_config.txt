@@ -1,5 +1,5 @@
 #
-# generated on 2014/05/03 04:45:21
+# generated on 2015/02/16 11:45:59
 #
 # --table-start--
 dataClass=com.yakovlev.prod.vocabularymanager.ormlite.Vocabulary
@@ -46,7 +46,13 @@ indexName=wordtable_wKey_idx
 fieldName=wValue
 # --field-end--
 # --field-start--
+fieldName=wTranscription
+# --field-end--
+# --field-start--
 fieldName=vocabularyId
+# --field-end--
+# --field-start--
+fieldName=wordStatus
 # --field-end--
 # --table-fields-end--
 # --table-end--

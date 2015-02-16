@@ -34,7 +34,8 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
 		final int id = CursorHelper.getNumberByField(cursor, "_id");
 		String key = CursorHelper.getStringByField(cursor, "wKey");
 		String value = CursorHelper.getStringByField(cursor, "wValue");
-		
+		String wTranscription = CursorHelper.getStringByField(cursor, "wTranscription");
+
 		tvKey = (TextView) view.findViewById(R.id.tvKey);
 		tvValue = (TextView) view.findViewById(R.id.tvValue);
 		

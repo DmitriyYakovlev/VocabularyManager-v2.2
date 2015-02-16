@@ -19,9 +19,17 @@ public class WordTable implements Serializable{
     @SerializedName("value")
     private String wValue;
 
+    @DatabaseField
+    @SerializedName("transcription")
+    private String wTranscription;
+
 	@DatabaseField
     @SerializedName("vocab_id")
     private int vocabularyId;
+
+    @DatabaseField
+    @SerializedName("word_stat")
+    private int wordStatus;
 
 	public WordTable() { }
 
@@ -31,7 +39,16 @@ public class WordTable implements Serializable{
 		this.setVocabularyId(vocabularyId);
 	}
 
-	@Override
+    public WordTable(int id, String wKey, String wValue, String wTranscription, int vocabularyId, int wordStatus) {
+        this.id = id;
+        this.wKey = wKey;
+        this.wValue = wValue;
+        this.wTranscription = wTranscription;
+        this.vocabularyId = vocabularyId;
+        this.wordStatus = wordStatus;
+    }
+
+    @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("id=").append(id);
@@ -66,6 +83,22 @@ public class WordTable implements Serializable{
 	public void setVocabularyId(int vocabularyId) {
 		this.vocabularyId = vocabularyId;
 	}
+
+    public String getwTranscription() {
+        return wTranscription;
+    }
+
+    public void setwTranscription(String wTranscription) {
+        this.wTranscription = wTranscription;
+    }
+
+    public int getWordStatus() {
+        return wordStatus;
+    }
+
+    public void setWordStatus(int wordStatus) {
+        this.wordStatus = wordStatus;
+    }
 
     public String toJson(){
         return new Gson().toJson(this);
