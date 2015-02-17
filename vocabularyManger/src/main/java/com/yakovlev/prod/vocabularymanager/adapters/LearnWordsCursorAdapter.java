@@ -10,11 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yakovlev.prod.vocabularymanager.ormlite.CursorHelper;
+import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
+import com.yakovlev.prod.vocabularymanager.ormlite.WordTableHelper;
+import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
 public class LearnWordsCursorAdapter extends CursorAdapter{
@@ -23,10 +27,12 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
 	private TextView tvKey, tvValue;
 	public Set<Integer> checkedItemsList = new HashSet<Integer>();
     private boolean hideRightSide = true;
+    private Context context;
 	
 	public LearnWordsCursorAdapter(Context context, Cursor cursor) {
 		super(context, cursor);
 		this.inflater = LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -63,7 +69,26 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
                 processLinearLayoutProcessing(viewLeftHide, viewRightHide, id);
             }
         });
-	}
+
+        setOnLongClickListenerForItem(id, itemParent);
+    }
+
+
+
+    private void setOnLongClickListenerForItem(final int wordId, View itemParent){
+
+
+        View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ToastHelper.doInUIThread(Integer.toString(wordId),context );
+
+
+                return false;
+            }
+        };
+        itemParent.setOnLongClickListener(onLongClickListener);
+    }
 
     private void processLinearLayoutProcessing(View viewLeftHide, View viewRightHide, int id){
         if (hideRightSide) {

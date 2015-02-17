@@ -45,6 +45,8 @@ public abstract class BaseListActivity extends FragmentActivity implements
         getSupportLoaderManager().initLoader(0, null, this);
 	}
 
+
+
     @Override
     protected void onResume() {
         super.onResume();

@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.widget.CursorAdapter;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 
 import com.yakovlev.prod.vocabularymanager.adapters.LearnWordsCursorAdapter;
@@ -40,6 +41,7 @@ public class LearnListActivity extends BaseListActivity {
 	@Override
 	public void onItemClickWork(int id) {
 	}
+
 
 
 	@Override
