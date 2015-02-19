@@ -2,6 +2,10 @@
 
     <!-- VALUES DEFAULT -->
 
+    <dimen name="dm_iv_for_hard_words_button_size">30dp</dimen>
+    <dimen name="dm_iv_margin_hard_words">5dp</dimen>
+
+
     <!--BLOCK 1-->
     <dimen name="dm_activity_header_text_size">28sp</dimen>
     <dimen name="dm_activity_header_margin_top">5dp</dimen>
@@ -61,6 +65,7 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="dm_iv_size">50dp</dimen>
+
     <dimen name="dm_iv_margin">10dp</dimen>
     <dimen name="dm_top_rl_height">70dp</dimen>
     <dimen name="dm_top_rl_tv_left_margin">50dp</dimen>

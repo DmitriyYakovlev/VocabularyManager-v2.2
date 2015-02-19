@@ -7,13 +7,16 @@ import com.yakovlev.prod.vocabularymanager.export_import_functionality.ExportFul
 import com.yakovlev.prod.vocabularymanager.export_import_functionality.ImportContentFromFileAT;
 import com.yakovlev.prod.vocabularymanager.file_explorer.FileExplorerActivity;
 import com.yakovlev.prod.vocabularymanager.file_explorer.FileWorkHelper;
+import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
+import com.yakovlev.prod.vocabularymanager.ormlite.WordTableHelper;
 import com.yakovlev.prod.vocabularymanager.support.IntentHelper;
 import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -34,7 +37,12 @@ public class MenuActivity extends Activity implements BaseActivityStructure, Exp
 		setOnClickListeners();
 
 		tvActHeader.setText("Main Menu");
-	}
+
+        Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(this);
+
+        int k = 0;
+        k++;
+    }
 
 	@Override
 	public void findAllViews() {

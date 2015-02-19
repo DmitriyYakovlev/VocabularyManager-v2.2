@@ -81,7 +81,7 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" >
         </activity>
         <activity
-            android:name="com.yakovlev.prod.vocabularymanager.LearnListActivity"
+            android:name="com.yakovlev.prod.vocabularymanager.LearnWordsInVocabularyActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Black.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" >

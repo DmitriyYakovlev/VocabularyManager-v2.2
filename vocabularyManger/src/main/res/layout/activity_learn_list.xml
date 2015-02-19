@@ -37,6 +37,18 @@
             android:layout_above="@+id/relBottomChildLayoutFake" >
         </RelativeLayout>
 
+        <ImageButton
+            android:id="@+id/imgBtnHardWords"
+            android:layout_width="@dimen/dm_iv_for_hard_words_button_size"
+            android:layout_height="@dimen/dm_iv_for_hard_words_button_size"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dm_iv_margin_hard_words"
+            android:background="@drawable/ic_hard_words">
+        </ImageButton>
+
+
         <RelativeLayout
             android:id="@+id/relBottomChildLayoutFake"
             android:layout_width="match_parent"

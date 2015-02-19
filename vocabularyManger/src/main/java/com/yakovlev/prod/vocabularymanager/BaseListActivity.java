@@ -43,14 +43,15 @@ public abstract class BaseListActivity extends FragmentActivity implements
 
         listContent = (ListView) findViewById(R.id.lvVocabs);
         getSupportLoaderManager().initLoader(0, null, this);
+
+        processOnCreateAdditionalCode();
 	}
 
-
+    protected abstract void processOnCreateAdditionalCode();
 
     @Override
     protected void onResume() {
         super.onResume();
-
         if (baseCursorAdapter != null) {
             baseCursorAdapter.notifyDataSetChanged();
             listContent.refreshDrawableState();

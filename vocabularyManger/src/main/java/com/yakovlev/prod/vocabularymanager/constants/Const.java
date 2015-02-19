@@ -2,8 +2,9 @@ package com.yakovlev.prod.vocabularymanager.constants;
 
 public class Const {
 
-	
-	public static int PAUSE_FOR_SPLASH_SCREEN_IN_SECONDS = 1;
+    public static int OPEN_LEARN_WORDS_ACTIVITY_FOR_HARD_WORDS = 1001;
+
+    public static int PAUSE_FOR_SPLASH_SCREEN_IN_SECONDS = 1;
 
 	public static int REQUEST_CODE_ADD_NEW_VOCAB = 1;
 	public static int REQUEST_CODE_EDIT_VOCAB = 2;

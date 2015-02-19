@@ -1,24 +1,27 @@
 package com.yakovlev.prod.vocabularymanager.adapters;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yakovlev.prod.vocabularymanager.LearnWordsInVocabularyActivity;
 import com.yakovlev.prod.vocabularymanager.ormlite.CursorHelper;
-import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
+import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
+import com.yakovlev.prod.vocabularymanager.ormlite.WordStatusEnum;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTableHelper;
-import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
 public class LearnWordsCursorAdapter extends CursorAdapter{
@@ -28,11 +31,13 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
 	public Set<Integer> checkedItemsList = new HashSet<Integer>();
     private boolean hideRightSide = true;
     private Context context;
-	
-	public LearnWordsCursorAdapter(Context context, Cursor cursor) {
+	private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks;
+
+	public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks) {
 		super(context, cursor);
 		this.inflater = LayoutInflater.from(context);
         this.context = context;
+        this.cursorLoaderCallbacks = cursorLoaderCallbacks;
 	}
 
 	@Override
@@ -41,6 +46,7 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
 		String key = CursorHelper.getStringByField(cursor, "wKey");
 		String value = CursorHelper.getStringByField(cursor, "wValue");
 		String wTranscription = CursorHelper.getStringByField(cursor, "wTranscription");
+		int wStatus = CursorHelper.getNumberByField(cursor, "wordStatus");
 
 		tvKey = (TextView) view.findViewById(R.id.tvKey);
 		tvValue = (TextView) view.findViewById(R.id.tvValue);
@@ -70,20 +76,46 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
             }
         });
 
+        processWordStatus(wStatus);
+
         setOnLongClickListenerForItem(id, itemParent);
     }
 
+    private void processWordStatus(int wStatus){
+        if (wStatus == WordStatusEnum.getNormal()){
+            setTvForNormalWord(tvKey);
+            setTvForNormalWord(tvValue);
+        }
+        else if (wStatus == WordStatusEnum.getHard()) {
+            setTvForHardWord(tvKey);
+            setTvForHardWord(tvValue);
+        }
 
+    }
+
+    private void setTvForHardWord(TextView textView){
+        textView.setTextColor(Color.RED);
+        textView.setTypeface(null,Typeface.BOLD);
+    }
+
+    private void setTvForNormalWord(TextView textView){
+        textView.setTextColor(Color.WHITE);
+        textView.setTypeface(null,Typeface.NORMAL);
+    }
 
     private void setOnLongClickListenerForItem(final int wordId, View itemParent){
-
-
         View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToastHelper.doInUIThread(Integer.toString(wordId),context );
+                try {
+                    DatabaseHelper dbHelper = new DatabaseHelper(context);
+                    WordTableHelper.changeWordStatus(wordId, dbHelper);
+                    ((LearnWordsInVocabularyActivity)context).getSupportLoaderManager().restartLoader(0, null, cursorLoaderCallbacks);
 
-
+                    notifyDataSetChanged();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 return false;
             }
         };

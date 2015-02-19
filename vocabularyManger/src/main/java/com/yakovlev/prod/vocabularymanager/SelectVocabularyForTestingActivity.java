@@ -9,8 +9,11 @@ import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.widget.CursorAdapter;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class SelectVocabularyForTestingActivity extends BaseListActivity  {
+
+    private ImageButton btnShowHardWords;
 
 	@Override
 	public int setContentView() {
@@ -22,8 +25,13 @@ public class SelectVocabularyForTestingActivity extends BaseListActivity  {
 		return new SimpleVocabCursorAdapter(this, cursor);
 	}
 
+    @Override
+    protected void processOnCreateAdditionalCode() {
+        btnShowHardWords = (ImageButton)findViewById(R.id.imgBtnHardWords);
+        btnShowHardWords.setVisibility(View.GONE);
+    }
 
-	@Override
+    @Override
 	public void onItemClickWork(int id) {
 		AlertDialogsHolder.openSelectWayOfTestingDialog(id, SelectVocabularyForTestingActivity.this);
 	}
@@ -35,7 +43,7 @@ public class SelectVocabularyForTestingActivity extends BaseListActivity  {
 
 	@Override
 	public String setActivityHeader() {
-		return "Vocabularies for testing list";
+		return "Select vocabulary";
 	}
 
 	@Override

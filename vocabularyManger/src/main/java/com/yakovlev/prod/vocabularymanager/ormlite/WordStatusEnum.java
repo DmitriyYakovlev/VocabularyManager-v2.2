@@ -4,11 +4,11 @@ public enum WordStatusEnum {
 
     NORMAL, HARD;
 
-    public int getNormal(){
+    public static int getNormal(){
         return NORMAL.ordinal();
     }
 
-    public int getHard(){
+    public static int getHard(){
         return HARD.ordinal();
     }
 
