@@ -31,7 +31,11 @@ public class WordsCursorLoader extends CursorLoader {
 		Cursor cursor = getCursorFromORM(context);
 		return cursor;
 	}
-	
+
+    public Cursor getCursor(){
+        return getCursorFromORM(context);
+    }
+
 	public static Cursor getCursorFromORM(Context context)  {
 		DatabaseHelper dbHelper = new DatabaseHelper(context);
 		RuntimeExceptionDao<WordTable, Integer> simpleDao = dbHelper.getWordsRuntimeDataDao();

@@ -49,7 +49,7 @@ public class WordTableHelper {
         return word;
     }
 
-    public static void changeWordStatus(Integer wordId, DatabaseHelper dbDatabaseHelper) throws SQLException {
+    public static int changeWordStatus(Integer wordId, DatabaseHelper dbDatabaseHelper) throws SQLException {
         WordTable word = getWordById(wordId, dbDatabaseHelper);
 
         if (word.getWordStatus() == WordStatusEnum.getNormal()){
@@ -60,6 +60,7 @@ public class WordTableHelper {
         }
 
         updateWordFromDb(word, dbDatabaseHelper);
+        return word.getWordStatus();
     }
 
     public static Cursor getHardWordsCursorFromORM(Context context)  {

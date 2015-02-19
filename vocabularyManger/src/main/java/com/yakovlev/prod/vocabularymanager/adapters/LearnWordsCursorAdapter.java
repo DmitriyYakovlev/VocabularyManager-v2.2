@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yakovlev.prod.vocabularymanager.LearnWordsInVocabularyActivity;
+import com.yakovlev.prod.vocabularymanager.cursor_loaders.WordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.ormlite.CursorHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordStatusEnum;
@@ -32,12 +33,14 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
     private boolean hideRightSide = true;
     private Context context;
 	private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks;
+    private int vocabId;
 
-	public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks) {
+	public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId) {
 		super(context, cursor);
 		this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.cursorLoaderCallbacks = cursorLoaderCallbacks;
+        this.vocabId = vocabId;
 	}
 
 	@Override
@@ -76,12 +79,12 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
             }
         });
 
-        processWordStatus(wStatus);
+        processWordStatus(wStatus, tvKey, tvValue);
 
-        setOnLongClickListenerForItem(id, itemParent);
+        setOnLongClickListenerForItem(id, itemParent, tvKey, tvValue);
     }
 
-    private void processWordStatus(int wStatus){
+    private void processWordStatus(int wStatus, TextView tvKey, TextView tvValue){
         if (wStatus == WordStatusEnum.getNormal()){
             setTvForNormalWord(tvKey);
             setTvForNormalWord(tvValue);
@@ -103,16 +106,16 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
         textView.setTypeface(null,Typeface.NORMAL);
     }
 
-    private void setOnLongClickListenerForItem(final int wordId, View itemParent){
+    private void setOnLongClickListenerForItem(final int wordId, View itemParent, final TextView tvKey, final TextView tvValue){
         View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 try {
                     DatabaseHelper dbHelper = new DatabaseHelper(context);
-                    WordTableHelper.changeWordStatus(wordId, dbHelper);
-                    ((LearnWordsInVocabularyActivity)context).getSupportLoaderManager().restartLoader(0, null, cursorLoaderCallbacks);
-
-                    notifyDataSetChanged();
+                    int wordStatusNew = WordTableHelper.changeWordStatus(wordId, dbHelper);
+                    processWordStatus(wordStatusNew,  tvKey, tvValue);
+                    WordsCursorLoader loader = new WordsCursorLoader(vocabId, context);
+                    changeCursor(loader.getCursor());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

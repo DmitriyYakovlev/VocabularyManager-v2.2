@@ -132,7 +132,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
     }
 
 	public CursorAdapter setCursorAdapter(Cursor cursor) {
-		adapter = new LearnWordsCursorAdapter(this, cursor, this);
+		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId);
         int wordsCount = adapter.getCount();
         String message = "Number of words in vocabulary : " + Integer.toString(wordsCount);
         ToastHelper.doInUIThreadShort(message, this);
