@@ -16,6 +16,7 @@ import com.yakovlev.prod.vocabularymanager.file_explorer.FileWorkHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.Vocabulary;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
+import com.yakovlev.prod.vocabularymanager.ormlite.WordTableHelper;
 import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanager.support.ValidationHelper;
 import com.yakovlev.prod.vocabularymanger.R;
@@ -222,13 +223,7 @@ public class EditVocabularyActivity extends Activity implements OnClickListener,
 	private void saveWordInVocabulary(WordTable wTable) {
 		try {
 			wTable.setVocabularyId(vocabIdForEdit);
-            wTable.setwTranscription("trans");
-            wTable.setWordStatus(1);
-			dbHelper = new DatabaseHelper(this);
-			wordsDao = dbHelper.getWordDao();
-
-			wordsDao.create(wTable);
-
+            WordTableHelper.createWordWithHardStatusInDb(wTable, this);
 			setWordsInfo(curentVocabulary.getId());
 		} catch (SQLException e) {
 			e.printStackTrace();

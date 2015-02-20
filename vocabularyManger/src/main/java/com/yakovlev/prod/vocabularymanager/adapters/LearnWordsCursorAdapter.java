@@ -19,13 +19,18 @@ import android.widget.TextView;
 
 import com.yakovlev.prod.vocabularymanager.LearnWordsInVocabularyActivity;
 import com.yakovlev.prod.vocabularymanager.cursor_loaders.WordsCursorLoader;
+import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
+import com.yakovlev.prod.vocabularymanager.dialogs.DialogButtonsCallback;
+import com.yakovlev.prod.vocabularymanager.dialogs.OperateWordDialog;
+import com.yakovlev.prod.vocabularymanager.dialogs.OperateWordDialogCallback;
 import com.yakovlev.prod.vocabularymanager.ormlite.CursorHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordStatusEnum;
+import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTableHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
-public class LearnWordsCursorAdapter extends CursorAdapter{
+public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWordDialogCallback, DialogButtonsCallback{
 
 	private LayoutInflater inflater;
 	private TextView tvKey, tvValue;
@@ -84,6 +89,61 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
         setOnLongClickListenerForItem(id, itemParent, tvKey, tvValue);
     }
 
+    @Override
+    public void onDeleteWordButtonPressed(int wordId) {
+        try {
+            DatabaseHelper dbHelper = new DatabaseHelper(context);
+            WordTableHelper.deleteWordFromDb(wordId, dbHelper);
+            reloadCursorAndChangeForAdapter();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onEditWordButtonPressed(int wordId) {
+        try {
+            DatabaseHelper dbHelper = new DatabaseHelper(context);
+            WordTable wordTable = WordTableHelper.getWordById(wordId, dbHelper);
+            AlertDialogsHolder.openEditWordDialog(context, this, wordTable);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void possitiveButtonPress(WordTable wTable) {
+        try {
+            DatabaseHelper dbHelper = new DatabaseHelper(context);
+            WordTableHelper.updateWordFromDb(wTable, dbHelper);
+            reloadCursorAndChangeForAdapter();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void negativeButtonPress(String key, String value) {
+
+    }
+
+    @Override
+    public void onChangeStatusButtonPressed(TextView tvKey, TextView tvValue, int wordId) {
+        try {
+            DatabaseHelper dbHelper = new DatabaseHelper(context);
+            int wordStatusNew = WordTableHelper.changeWordStatus(wordId, dbHelper);
+            processWordStatus(wordStatusNew,  tvKey, tvValue);
+            reloadCursorAndChangeForAdapter();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void reloadCursorAndChangeForAdapter(){
+        WordsCursorLoader loader = new WordsCursorLoader(vocabId, context);
+        changeCursor(loader.getCursor());
+    }
+
     private void processWordStatus(int wStatus, TextView tvKey, TextView tvValue){
         if (wStatus == WordStatusEnum.getNormal()){
             setTvForNormalWord(tvKey);
@@ -110,15 +170,8 @@ public class LearnWordsCursorAdapter extends CursorAdapter{
         View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                try {
-                    DatabaseHelper dbHelper = new DatabaseHelper(context);
-                    int wordStatusNew = WordTableHelper.changeWordStatus(wordId, dbHelper);
-                    processWordStatus(wordStatusNew,  tvKey, tvValue);
-                    WordsCursorLoader loader = new WordsCursorLoader(vocabId, context);
-                    changeCursor(loader.getCursor());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                OperateWordDialog dialog = new OperateWordDialog(context, LearnWordsCursorAdapter.this, tvKey, tvValue, wordId );
+                dialog.show();
                 return false;
             }
         };

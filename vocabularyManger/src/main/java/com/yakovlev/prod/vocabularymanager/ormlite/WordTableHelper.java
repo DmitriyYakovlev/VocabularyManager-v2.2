@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.j256.ormlite.android.AndroidDatabaseResults;
 import com.j256.ormlite.dao.CloseableIterator;
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -17,10 +18,19 @@ import com.j256.ormlite.stmt.Where;
 
 public class WordTableHelper {
 
-	public static void deleteWordFromDb(Integer position, DatabaseHelper dbDatabaseHelper ) throws SQLException{
+    public static WordTable createWordWithHardStatusInDb(WordTable word, Context context) throws SQLException{
+        word.setWordStatus(WordStatusEnum.getNormal());
+        word.setwTranscription("");
+        DatabaseHelper dbDatabaseHelper = new DatabaseHelper(context);
+        Dao<WordTable, Integer> wordsDao = dbDatabaseHelper.getWordDao();
+        wordsDao.create(word);
+        return word;
+    }
+
+	public static void deleteWordFromDb(Integer wordId, DatabaseHelper dbDatabaseHelper ) throws SQLException{
 
 		RuntimeExceptionDao<WordTable, Integer> words = dbDatabaseHelper.getWordsRuntimeDataDao();
-		WordTable list = getWordById(position, dbDatabaseHelper);
+		WordTable list = getWordById(wordId, dbDatabaseHelper);
 		words.delete(list);
 	}
 	

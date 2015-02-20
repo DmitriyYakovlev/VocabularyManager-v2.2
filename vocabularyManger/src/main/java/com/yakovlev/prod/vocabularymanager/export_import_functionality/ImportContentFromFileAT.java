@@ -62,11 +62,8 @@ public class ImportContentFromFileAT extends AsyncTask<Void, Void, Void> {
                     WordTable currentWord = allWords[j];
                     int currentWordId = currentWord.getVocabularyId();
 
-
-
                     if (currentWordId == oldVocId) {
                         currentWord.setVocabularyId(newVocId);
-
                         if (currentWord.getwTranscription() == null)
                             currentWord.setwTranscription("");
 
