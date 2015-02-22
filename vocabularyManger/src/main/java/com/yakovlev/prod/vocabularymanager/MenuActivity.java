@@ -35,13 +35,7 @@ public class MenuActivity extends Activity implements BaseActivityStructure, Exp
 
 		findAllViews();
 		setOnClickListeners();
-
-		tvActHeader.setText("Main Menu");
-
-        Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(this);
-
-        int k = 0;
-        k++;
+    	tvActHeader.setText("Main Menu");
     }
 
 	@Override

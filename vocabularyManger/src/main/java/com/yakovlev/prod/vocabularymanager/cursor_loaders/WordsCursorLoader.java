@@ -47,9 +47,6 @@ public class WordsCursorLoader extends CursorLoader {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
-//		PreparedQuery<WordTable> preparedQuery = queryBuilder.prepare();
-//		SimpleData list = simpleDao.queryForFirst(preparedQuery);
 
 		CloseableIterator<WordTable> iterator = null;
 		Cursor cursor = null;

@@ -71,9 +71,25 @@
             android:layout_height="@dimen/dm_dark_line_height"
             android:layout_alignParentBottom="true" >
 
-            <TextView
-                android:id="@+id/tvVersionSHOW"
-                style="@style/st_tv_version" />
+            <ImageButton
+                android:id="@+id/btnNextVocabulary"
+                android:layout_width="40dp"
+                android:src="@drawable/ic_next"
+                android:background="@android:color/transparent"
+                android:layout_alignParentRight="true"
+
+                android:layout_marginRight="10dp"
+                android:layout_height="40dp" />
+
+            <ImageButton
+                android:id="@+id/btnPreliminaryVocabulary"
+                android:layout_width="40dp"
+                android:src="@drawable/ic_preliminary"
+                android:background="@android:color/transparent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_height="40dp" />
+
         </RelativeLayout>
     </RelativeLayout>
 

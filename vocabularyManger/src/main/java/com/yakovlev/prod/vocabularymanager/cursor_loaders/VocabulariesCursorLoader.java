@@ -16,7 +16,8 @@ import android.database.Cursor;
 public class VocabulariesCursorLoader extends CursorLoader {
 
 	private Context context;
-	
+	private Cursor cursor;
+
 	public VocabulariesCursorLoader(Context context) {
 		super(context);
 		this.context = context;
@@ -24,11 +25,16 @@ public class VocabulariesCursorLoader extends CursorLoader {
 
 	@Override
 	public Cursor loadInBackground() {
-		Cursor cursor = getCursorFromORM(context);
+		cursor = getCursorFromORM(context);
 		return cursor;
 	}
-	
-	public static Cursor getCursorFromORM(Context context) {
+
+    public Cursor getCursor() {
+        return cursor;
+    }
+
+
+    public static Cursor getCursorFromORM(Context context) {
 		DatabaseHelper dbHelper = new DatabaseHelper(context);
 		RuntimeExceptionDao<Vocabulary, Integer> simpleDao = dbHelper.getVocabularyRuntimeDataDao();
 		QueryBuilder<Vocabulary, Integer> queryBuilder = simpleDao.queryBuilder();

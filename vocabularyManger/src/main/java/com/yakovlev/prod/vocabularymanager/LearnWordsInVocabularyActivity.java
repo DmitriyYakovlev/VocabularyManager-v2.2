@@ -10,6 +10,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,16 +25,19 @@ import com.yakovlev.prod.vocabularymanager.support.SharedPreferencesHelper;
 import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
+import java.util.ArrayList;
+
 public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         BaseActivityStructure, LoaderManager.LoaderCallbacks<Cursor>, DialogAskCallback {
 
 	private LearnWordsCursorAdapter adapter;
-    private ImageButton btnSwitchMode;
+    private ImageButton btnSwitchMode, btnPrevious, btnNext;
     private ListView listContent;
     private TextView tvHeader;
     private int vocabularyId;
     private CursorAdapter baseCursorAdapter;
     private boolean isOpenHardWordsModeActive = false;
+    private ArrayList<Integer> vocabIsList;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -41,11 +45,13 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         setContentView(R.layout.activity_learn_select_vocab);
 
         Intent intent = getIntent();
-        vocabularyId = intent.getIntExtra(Const.VOCAB_ID, -1);
+        vocabularyId = intent.getIntExtra(Const.VOCAB_ID_POSITION_IN_LIST, -1);
         if (vocabularyId == Const.OPEN_LEARN_WORDS_ACTIVITY_FOR_HARD_WORDS){
             isOpenHardWordsModeActive = true;
         }
-
+        else {
+            vocabIsList = intent.getIntegerArrayListExtra(Const.VOCAB_IDS_LIST);
+        }
 
         processLastVocabularyIdFromPreferences(vocabularyId);
 
@@ -55,6 +61,11 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
 
         listContent = (ListView) findViewById(R.id.lvVocabs);
         getSupportLoaderManager().initLoader(0, null, this);
+
+        if (isOpenHardWordsModeActive){
+            btnPrevious.setVisibility(View.GONE);
+            btnNext.setVisibility(View.GONE);
+        }
 
     }
 
@@ -69,16 +80,9 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         btnSwitchMode.setOnClickListener(this);
     }
 
-    private int lastVocabularyId;
     private void processLastVocabularyIdFromPreferences(int vocabularyId) {
         if (!isOpenHardWordsModeActive) {
-            if (vocabularyId != -1) {
                 SharedPreferencesHelper.saveNumberInSharedPreferences(vocabularyId, this, SharedPreferencesHelper.KEY_LAST_USED_VOCABULARY_ID);
-            } else {
-                lastVocabularyId = SharedPreferencesHelper.loadNumberFromSharedPreferences(this, SharedPreferencesHelper.KEY_LAST_USED_VOCABULARY_ID);
-                if (lastVocabularyId != -1 && lastVocabularyId != vocabularyId)
-                    AlertDialogsHolder.openAskDialog(this, "Restart last vocabulary ?", this);
-            }
         }
     }
 
@@ -92,26 +96,30 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
 
     }
 
-    public int getVocabularyId() {
-        return vocabularyId;
-    }
-
     @Override
     public void findAllViews() {
         tvHeader = (TextView) findViewById(R.id.tvActName);
+        btnPrevious = (ImageButton)findViewById(R.id.btnPreliminaryVocabulary);
+        btnNext = (ImageButton)findViewById(R.id.btnNextVocabulary);
     }
 
     @Override
     public void setOnClickListeners() {
-
+        btnNext.setOnClickListener(this);
+        btnPrevious.setOnClickListener(this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+//        int fromList = vocabIsList.get(vocabularyId-1);
+//        ToastHelper.doInUIThread(Integer.toString(vocabularyId) + " - " + Integer.toString(fromList), LearnWordsInVocabularyActivity.this);
+
         if (isOpenHardWordsModeActive)
             return new HardWordsCursorLoader(this);
         else
-            return new WordsCursorLoader(getVocabularyId(), this);
+            return new WordsCursorLoader(vocabularyId, this);
+
+
     }
 
     @Override
@@ -134,8 +142,8 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
 	public CursorAdapter setCursorAdapter(Cursor cursor) {
 		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId);
         int wordsCount = adapter.getCount();
-        String message = "Number of words in vocabulary : " + Integer.toString(wordsCount);
-        ToastHelper.doInUIThreadShort(message, this);
+//        String message = "Number of words in vocabulary : " + Integer.toString(wordsCount);
+//        ToastHelper.doInUIThreadShort(message, this);
 		return adapter;
 	}
 
@@ -147,7 +155,23 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         switch (v.getId()){
             case R.id.imgBtnSwitch:
                 adapter.changeSwitcher();
-            break;
+                break;
+            case R.id.btnNextVocabulary:
+                vocabularyId++;
+                getSupportLoaderManager().restartLoader(0, null, this);
+                processLastVocabularyIdFromPreferences(vocabularyId);
+                break;
+            case R.id.btnPreliminaryVocabulary:
+                vocabularyId--;
+                if (vocabularyId > 0 ) {
+                    getSupportLoaderManager().restartLoader(0, null, this);
+                    processLastVocabularyIdFromPreferences(vocabularyId);
+                }
+                else {
+                    ToastHelper.doInUIThread("Vocabulary id ought be bigger than 0", this);
+                    vocabularyId++;
+                }
+                break;
         }
 	}
 

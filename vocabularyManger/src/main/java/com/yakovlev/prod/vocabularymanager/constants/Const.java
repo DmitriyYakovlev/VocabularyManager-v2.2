@@ -10,6 +10,9 @@ public class Const {
 	public static int REQUEST_CODE_EDIT_VOCAB = 2;
 	
 	public static String VOCAB_ID = "vocabId";
+    public static String VOCAB_ID_POSITION_IN_LIST = "vocabIdPositionList";
+
+    public static String VOCAB_IDS_LIST = "vocabIdsList";
 	public static String PUT_EXTRA_TESTING_TYPE = "testing_type";
 	
 	// preferences activity

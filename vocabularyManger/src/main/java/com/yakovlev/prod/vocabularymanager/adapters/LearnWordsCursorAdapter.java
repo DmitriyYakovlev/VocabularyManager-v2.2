@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yakovlev.prod.vocabularymanager.LearnWordsInVocabularyActivity;
+import com.yakovlev.prod.vocabularymanager.constants.Const;
+import com.yakovlev.prod.vocabularymanager.cursor_loaders.HardWordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.cursor_loaders.WordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
 import com.yakovlev.prod.vocabularymanager.dialogs.DialogButtonsCallback;
@@ -38,7 +40,7 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
     private boolean hideRightSide = true;
     private Context context;
 	private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks;
-    private int vocabId;
+    private int vocabId = -1;
 
 	public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId) {
 		super(context, cursor);
@@ -140,8 +142,14 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
     }
 
     private void reloadCursorAndChangeForAdapter(){
-        WordsCursorLoader loader = new WordsCursorLoader(vocabId, context);
-        changeCursor(loader.getCursor());
+        if (vocabId == Const.OPEN_LEARN_WORDS_ACTIVITY_FOR_HARD_WORDS) {
+            Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context);
+            changeCursor(cursor);
+        }
+        else {
+            WordsCursorLoader loader = new WordsCursorLoader(vocabId, context);
+            changeCursor(loader.getCursor());
+        }
     }
 
     private void processWordStatus(int wStatus, TextView tvKey, TextView tvValue){

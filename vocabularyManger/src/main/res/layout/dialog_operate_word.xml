@@ -6,20 +6,6 @@
     android:layout_height="200dp">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
-
-        <ImageButton
-            android:id="@+id/btnChangeWordStatus"
-            android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_change_word_status"
-            android:background="@color/col_navajo_white2"
-            android:layout_height="match_parent" />
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,5 +34,21 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/btnChangeWordStatus"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_change_word_status"
+            android:background="@color/col_navajo_white2"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>
