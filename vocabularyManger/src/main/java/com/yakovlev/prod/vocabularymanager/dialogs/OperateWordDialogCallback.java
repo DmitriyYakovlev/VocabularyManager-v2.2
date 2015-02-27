@@ -8,5 +8,9 @@ public interface OperateWordDialogCallback {
 
     public void onEditWordButtonPressed(int wordId);
 
-    public void onChangeStatusButtonPressed(TextView tvKey, TextView tvValue, int wordId);
+    public void onSetWordAsHardFirstRank(TextView tvKey, TextView tvValue, int wordId);
+
+    public void onSetWordAsHardSecondRank(TextView tvKey, TextView tvValue, int wordId);
+
+    public void onSetWordAsLearned(TextView tvKey, TextView tvValue, int wordId);
 }

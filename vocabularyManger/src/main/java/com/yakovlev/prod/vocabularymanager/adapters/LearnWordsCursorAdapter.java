@@ -17,9 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.yakovlev.prod.vocabularymanager.LearnWordsInVocabularyActivity;
 import com.yakovlev.prod.vocabularymanager.constants.Const;
-import com.yakovlev.prod.vocabularymanager.cursor_loaders.HardWordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.cursor_loaders.WordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
 import com.yakovlev.prod.vocabularymanager.dialogs.DialogButtonsCallback;
@@ -130,10 +128,24 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
     }
 
     @Override
-    public void onChangeStatusButtonPressed(TextView tvKey, TextView tvValue, int wordId) {
+    public void onSetWordAsHardFirstRank(TextView tvKey, TextView tvValue, int wordId) {
+        saveWordStatus(tvKey, tvValue, wordId, WordStatusEnum.getHardFirstRank());
+    }
+
+    @Override
+    public void onSetWordAsHardSecondRank(TextView tvKey, TextView tvValue, int wordId) {
+        saveWordStatus(tvKey, tvValue, wordId, WordStatusEnum.getHardSecondRank());
+    }
+
+    @Override
+    public void onSetWordAsLearned(TextView tvKey, TextView tvValue, int wordId) {
+        saveWordStatus(tvKey, tvValue, wordId, WordStatusEnum.getNormal());
+    }
+
+    private void saveWordStatus(TextView tvKey, TextView tvValue, int wordId, int wordStatus ){
         try {
             DatabaseHelper dbHelper = new DatabaseHelper(context);
-            int wordStatusNew = WordTableHelper.changeWordStatus(wordId, dbHelper);
+            int wordStatusNew = WordTableHelper.setWordStatus(wordId, wordStatus, dbHelper);
             processWordStatus(wordStatusNew,  tvKey, tvValue);
             reloadCursorAndChangeForAdapter();
         } catch (SQLException e) {
@@ -157,17 +169,27 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
             setTvForNormalWord(tvKey);
             setTvForNormalWord(tvValue);
         }
-        else if (wStatus == WordStatusEnum.getHard()) {
-            setTvForHardWord(tvKey);
-            setTvForHardWord(tvValue);
+        else if (wStatus == WordStatusEnum.getHardFirstRank()) {
+            setTvForHardWordFirstRankWord(tvKey);
+            setTvForHardWordFirstRankWord(tvValue);
+        }
+        else if (wStatus == WordStatusEnum.getHardSecondRank()) {
+            setTvForHardWordSecondRankWord(tvKey);
+            setTvForHardWordSecondRankWord(tvValue);
         }
 
     }
 
-    private void setTvForHardWord(TextView textView){
+    private void setTvForHardWordFirstRankWord(TextView textView){
         textView.setTextColor(Color.RED);
         textView.setTypeface(null,Typeface.BOLD);
     }
+
+    private void setTvForHardWordSecondRankWord(TextView textView){
+        textView.setTextColor(Color.YELLOW);
+        textView.setTypeface(null,Typeface.BOLD);
+    }
+
 
     private void setTvForNormalWord(TextView textView){
         textView.setTextColor(Color.WHITE);

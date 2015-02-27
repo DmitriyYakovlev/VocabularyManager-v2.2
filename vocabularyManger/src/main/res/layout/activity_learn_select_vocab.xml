@@ -12,6 +12,12 @@
             android:id="@+id/tvActName"
             style="@style/st_tv_header_act_name" />
 
+        <TextView
+            android:id="@+id/tvVocabName"
+            android:layout_toRightOf="@+id/tvActName"
+            android:textSize="14sp"
+            style="@style/st_tv_header_vocab_name" />
+
         <ImageButton
             android:id="@+id/imgBtnSwitch"
             android:layout_width="@dimen/dm_iv_size"

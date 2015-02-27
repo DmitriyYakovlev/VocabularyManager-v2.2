@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import com.j256.ormlite.android.AndroidDatabaseResults;
 import com.j256.ormlite.dao.CloseableIterator;
@@ -39,16 +38,6 @@ public class WordTableHelper {
 		words.update(wordTable);
 	}
 
-    public static List<WordTable> getHardWords(DatabaseHelper dbDatabaseHelper) throws SQLException{
-        RuntimeExceptionDao<WordTable, Integer> words = dbDatabaseHelper.getWordsRuntimeDataDao();
-        QueryBuilder<WordTable, Integer> qb = words.queryBuilder();
-        Where where = qb.where();
-        where.eq("wordStatus", WordStatusEnum.getHard());
-        PreparedQuery<WordTable> preparedQuery = qb.prepare();
-        List<WordTable> hardWords = words.query(preparedQuery);
-        return hardWords;
-    }
-
     public static WordTable getWordById(Integer position, DatabaseHelper dbDatabaseHelper ) throws SQLException{
         RuntimeExceptionDao<WordTable, Integer> words = dbDatabaseHelper.getWordsRuntimeDataDao();
         QueryBuilder<WordTable, Integer> qb = words.queryBuilder();
@@ -63,12 +52,19 @@ public class WordTableHelper {
         WordTable word = getWordById(wordId, dbDatabaseHelper);
 
         if (word.getWordStatus() == WordStatusEnum.getNormal()){
-            word.setWordStatus(WordStatusEnum.getHard());
+            word.setWordStatus(WordStatusEnum.getHardFirstRank());
         }
         else {
             word.setWordStatus(WordStatusEnum.getNormal());
         }
 
+        updateWordFromDb(word, dbDatabaseHelper);
+        return word.getWordStatus();
+    }
+
+    public static int setWordStatus(Integer wordId, int wordStatus,  DatabaseHelper dbDatabaseHelper) throws SQLException {
+        WordTable word = getWordById(wordId, dbDatabaseHelper);
+        word.setWordStatus(wordStatus);
         updateWordFromDb(word, dbDatabaseHelper);
         return word.getWordStatus();
     }
@@ -80,10 +76,13 @@ public class WordTableHelper {
 
         Where where = queryBuilder.where();
         try {
-            where.eq("wordStatus", WordStatusEnum.getHard());
+            where.eq("wordStatus", WordStatusEnum.getHardFirstRank() );
+            where.or();
+            where.eq("wordStatus", WordStatusEnum.getHardSecondRank() );
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
+        queryBuilder.orderBy("wKey", true);
 
         CloseableIterator<WordTable> iterator = null;
         Cursor cursor = null;

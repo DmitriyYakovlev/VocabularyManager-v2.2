@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,7 +14,7 @@ import com.yakovlev.prod.vocabularymanger.R;
 public class OperateWordDialog extends Dialog implements View.OnClickListener {
 
     private OperateWordDialogCallback callback;
-    private ImageButton btnDelete, btnEdit, btnChangeWordStatus;
+    private ImageButton btnDelete, btnEdit, btnHardWordsFirstRank, btnHardWordsSecondRank, btnLearnedWordsStatus;
     private TextView tvValue, tvKey;
     private int wordId;
 
@@ -38,11 +37,15 @@ public class OperateWordDialog extends Dialog implements View.OnClickListener {
     private void findViews() {
         btnDelete = (ImageButton) findViewById(R.id.btnDeleteWord);
         btnEdit = (ImageButton) findViewById(R.id.btnEditWord);
-        btnChangeWordStatus = (ImageButton) findViewById(R.id.btnChangeWordStatus);
+        btnHardWordsFirstRank = (ImageButton) findViewById(R.id.btnHardWordsFirstRank);
+        btnHardWordsSecondRank = (ImageButton) findViewById(R.id.btnHardWordsSecondRank);
+        btnLearnedWordsStatus = (ImageButton) findViewById(R.id.btnLearnedWord);
 
         btnDelete.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
-        btnChangeWordStatus.setOnClickListener(this);
+        btnHardWordsFirstRank.setOnClickListener(this);
+        btnHardWordsSecondRank.setOnClickListener(this);
+        btnLearnedWordsStatus.setOnClickListener(this);
     }
 
     @Override
@@ -54,8 +57,14 @@ public class OperateWordDialog extends Dialog implements View.OnClickListener {
             case R.id.btnEditWord:
                 callback.onEditWordButtonPressed(wordId);
                 break;
-            case R.id.btnChangeWordStatus:
-                callback.onChangeStatusButtonPressed(tvKey, tvValue, wordId);
+            case R.id.btnHardWordsFirstRank:
+                callback.onSetWordAsHardFirstRank(tvKey, tvValue, wordId);
+                break;
+            case R.id.btnHardWordsSecondRank:
+                callback.onSetWordAsHardSecondRank(tvKey, tvValue, wordId);
+                break;
+            case R.id.btnLearnedWord:
+                callback.onSetWordAsLearned(tvKey, tvValue, wordId);
                 break;
         }
         dismiss();
