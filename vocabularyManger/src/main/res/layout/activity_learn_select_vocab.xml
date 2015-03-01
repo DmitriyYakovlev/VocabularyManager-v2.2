@@ -58,6 +58,44 @@
         android:layout_height="match_parent"
         android:layout_below="@id/relTopHeader" >
 
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:background="@color/col_blue"
+            android:layout_height="@dimen/dm_dark_line_height">
+
+            <ImageButton
+                android:id="@+id/btnHardWordsFirstRank"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="1dp"
+                android:src="@drawable/ic_hardest"
+                android:background="@color/col_navajo_white2"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/btnHardWordsSecondRank"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:src="@drawable/ic_hard_second"
+                android:background="@color/col_navajo_white2"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/btnLearnedWord"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/ic_learned_word"
+                android:background="@color/col_navajo_white2"
+                android:layout_height="match_parent" />
+
+
+
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/rlMiddleContent"
             style="@style/st_rl_middle_content"

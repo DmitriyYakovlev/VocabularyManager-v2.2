@@ -27,7 +27,7 @@
                 android:id="@+id/hideViewLeft"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/col_orange"
+                android:background="@color/col_light_steel_blue_fon_for_hiding_of_words_when_learning"
                 android:visibility="visible"></View>
         </RelativeLayout>
 
@@ -48,7 +48,7 @@
                 android:id="@+id/hideViewRight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/col_orange"
+                android:background="@color/col_light_steel_blue_fon_for_hiding_of_words_when_learning"
                 android:visibility="visible"></View>
         </RelativeLayout>
     </LinearLayout>

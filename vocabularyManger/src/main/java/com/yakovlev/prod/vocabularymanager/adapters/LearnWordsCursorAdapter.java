@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.yakovlev.prod.vocabularymanager.constants.Const;
 import com.yakovlev.prod.vocabularymanager.cursor_loaders.WordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
+import com.yakovlev.prod.vocabularymanager.dialogs.DialogAskCallback;
 import com.yakovlev.prod.vocabularymanager.dialogs.DialogButtonsCallback;
 import com.yakovlev.prod.vocabularymanager.dialogs.OperateWordDialog;
 import com.yakovlev.prod.vocabularymanager.dialogs.OperateWordDialogCallback;
@@ -30,7 +31,7 @@ import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTableHelper;
 import com.yakovlev.prod.vocabularymanger.R;
 
-public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWordDialogCallback, DialogButtonsCallback{
+public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWordDialogCallback, DialogButtonsCallback, DialogAskCallback{
 
 	private LayoutInflater inflater;
 	private TextView tvKey, tvValue;
@@ -89,8 +90,24 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
         setOnLongClickListenerForItem(id, itemParent, tvKey, tvValue);
     }
 
+    private int wordIdForDeletion;
     @Override
     public void onDeleteWordButtonPressed(int wordId) {
+        wordIdForDeletion = wordId;
+        AlertDialogsHolder.openAskDialog(context, "Delete ?", this);
+    }
+
+    @Override
+    public void onPossitiveAskButtonPress() {
+        processDeletion(wordIdForDeletion);
+    }
+
+    @Override
+    public void onNegativeAskButtonPress() {
+
+    }
+
+    private void processDeletion(int wordId){
         try {
             DatabaseHelper dbHelper = new DatabaseHelper(context);
             WordTableHelper.deleteWordFromDb(wordId, dbHelper);
@@ -181,7 +198,7 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
     }
 
     private void setTvForHardWordFirstRankWord(TextView textView){
-        textView.setTextColor(Color.RED);
+        textView.setTextColor(context.getResources().getColor(R.color.col_orange_red_hard_words_first_rank));
         textView.setTypeface(null,Typeface.BOLD);
     }
 

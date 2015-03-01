@@ -34,7 +34,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         BaseActivityStructure, LoaderManager.LoaderCallbacks<Cursor>, DialogAskCallback {
 
 	private LearnWordsCursorAdapter adapter;
-    private ImageButton btnSwitchMode, btnPrevious, btnNext;
+    private ImageButton btnSwitchMode, btnPrevious, btnNext, btnShowHardWordsFirstRank, btnShowHardWordsSecondRank, btnShowAllWords;
     private ListView listContent;
     private TextView tvHeader, tvVocabName;
     private int vocabularyId;
@@ -76,9 +76,8 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
     }
 
     private Vocabulary initVocabularyByPosition(int position){
-//        int vocabId = vocabIsList.get(position);
         try {
-            return currentVocabulary = VocabularyDbHelp.getVocabularyById(position, this);
+            return VocabularyDbHelp.getVocabularyById(position, this);
         } catch (SQLException e) {
             e.printStackTrace();
             return  null;
@@ -119,12 +118,19 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         tvVocabName = (TextView) findViewById(R.id.tvVocabName);
         btnPrevious = (ImageButton)findViewById(R.id.btnPreliminaryVocabulary);
         btnNext = (ImageButton)findViewById(R.id.btnNextVocabulary);
+
+        btnShowHardWordsFirstRank = (ImageButton)findViewById(R.id.btnHardWordsFirstRank);
+        btnShowHardWordsSecondRank = (ImageButton)findViewById(R.id.btnHardWordsSecondRank);
+        btnShowAllWords = (ImageButton)findViewById(R.id.btnLearnedWord);
     }
 
     @Override
     public void setOnClickListeners() {
         btnNext.setOnClickListener(this);
         btnPrevious.setOnClickListener(this);
+        btnShowHardWordsFirstRank.setOnClickListener(this);
+        btnShowHardWordsSecondRank.setOnClickListener(this);
+        btnShowAllWords.setOnClickListener(this);
     }
 
     @Override
@@ -134,8 +140,6 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
             return new HardWordsCursorLoader(this);
         else
             return new WordsCursorLoader(vocabularyId, this);
-
-
     }
 
     @Override
@@ -163,8 +167,12 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
 		return adapter;
 	}
 
-
-
+    private void processVocabularyChanging(){
+        getSupportLoaderManager().restartLoader(0, null, this);
+        processLastVocabularyIdFromPreferences(vocabularyId);
+        currentVocabulary = initVocabularyByPosition(vocabularyId);
+        tvVocabName.setText(currentVocabulary.getvName());
+    }
 
 	@Override
 	public void onClick(View v) {
@@ -174,23 +182,26 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
                 break;
             case R.id.btnNextVocabulary:
                 vocabularyId++;
-                getSupportLoaderManager().restartLoader(0, null, this);
-                processLastVocabularyIdFromPreferences(vocabularyId);
-                currentVocabulary = initVocabularyByPosition(vocabularyId);
-                tvVocabName.setText(currentVocabulary.getvName());
+                processVocabularyChanging();
                 break;
             case R.id.btnPreliminaryVocabulary:
                 vocabularyId--;
                 if (vocabularyId > 0 ) {
-                    getSupportLoaderManager().restartLoader(0, null, this);
-                    processLastVocabularyIdFromPreferences(vocabularyId);
-                    currentVocabulary = initVocabularyByPosition(vocabularyId);
-                    tvVocabName.setText(currentVocabulary.getvName());
+                    processVocabularyChanging();
                 }
                 else {
                     ToastHelper.doInUIThread("Vocabulary id ought be bigger than 0", this);
                     vocabularyId++;
                 }
+                break;
+            case R.id.btnHardWordsFirstRank:
+
+                break;
+            case R.id.btnHardWordsSecondRank:
+
+                break;
+            case R.id.btnLearnedWord:
+
                 break;
         }
 	}
