@@ -65,11 +65,21 @@
             </TextView>
 
             <TextView
-                android:id="@+id/tvEditVocabs"
+                android:id="@+id/tvLearnHard"
                 style="@style/st_text_white_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvLearn"
+                android:layout_marginTop="@dimen/dm_main_act_menu_items_margin_top_other"
+                android:text="Special words" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvEditVocabs"
+                style="@style/st_text_white_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLearnHard"
                 android:layout_marginTop="@dimen/dm_main_act_menu_items_margin_top_other"
                 android:text="Vocabularies list" >
             </TextView>

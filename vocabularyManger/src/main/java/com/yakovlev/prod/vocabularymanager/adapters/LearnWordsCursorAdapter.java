@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yakovlev.prod.vocabularymanager.constants.Const;
+import com.yakovlev.prod.vocabularymanager.cursor_loaders.HardWordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.cursor_loaders.WordsCursorLoader;
 import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
 import com.yakovlev.prod.vocabularymanager.dialogs.DialogAskCallback;
@@ -29,6 +30,7 @@ import com.yakovlev.prod.vocabularymanager.ormlite.DatabaseHelper;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordStatusEnum;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTable;
 import com.yakovlev.prod.vocabularymanager.ormlite.WordTableHelper;
+import com.yakovlev.prod.vocabularymanager.support.HardWordMode;
 import com.yakovlev.prod.vocabularymanger.R;
 
 public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWordDialogCallback, DialogButtonsCallback, DialogAskCallback{
@@ -40,9 +42,10 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
     private Context context;
 	private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks;
     private int vocabId = -1;
-
-	public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId) {
+    private HardWordMode hardWordMode;
+	public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId,HardWordMode hardWordMode) {
 		super(context, cursor);
+        this.hardWordMode = hardWordMode;
 		this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.cursorLoaderCallbacks = cursorLoaderCallbacks;
@@ -170,9 +173,13 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
         }
     }
 
+    public void setHardWordMode(HardWordMode mode){
+        this.hardWordMode = mode;
+    }
+
     private void reloadCursorAndChangeForAdapter(){
         if (vocabId == Const.OPEN_LEARN_WORDS_ACTIVITY_FOR_HARD_WORDS) {
-            Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context);
+            Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context, hardWordMode);
             changeCursor(cursor);
         }
         else {

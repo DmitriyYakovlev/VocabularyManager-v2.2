@@ -13,6 +13,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
+import com.yakovlev.prod.vocabularymanager.support.HardWordMode;
 
 
 public class WordTableHelper {
@@ -69,16 +70,21 @@ public class WordTableHelper {
         return word.getWordStatus();
     }
 
-    public static Cursor getHardWordsCursorFromORM(Context context)  {
+    public static Cursor getHardWordsCursorFromORM(Context context, HardWordMode mode)  {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         RuntimeExceptionDao<WordTable, Integer> simpleDao = dbHelper.getWordsRuntimeDataDao();
         QueryBuilder<WordTable, Integer> queryBuilder = simpleDao.queryBuilder();
 
         Where where = queryBuilder.where();
         try {
-            where.eq("wordStatus", WordStatusEnum.getHardFirstRank() );
-            where.or();
-            where.eq("wordStatus", WordStatusEnum.getHardSecondRank() );
+            if (mode == HardWordMode.ALL_HARD_WORDS) {
+                where.eq("wordStatus", WordStatusEnum.getHardFirstRank());
+                where.or();
+                where.eq("wordStatus", WordStatusEnum.getHardSecondRank());
+            } else if (mode == HardWordMode.ONLY_HARDEST_WORDS) {
+                where.eq("wordStatus", WordStatusEnum.getHardFirstRank());
+            } else if (mode == HardWordMode.ONLY_SECOND_RANG)
+                where.eq("wordStatus", WordStatusEnum.getHardSecondRank());
         } catch (SQLException e1) {
             e1.printStackTrace();
         }

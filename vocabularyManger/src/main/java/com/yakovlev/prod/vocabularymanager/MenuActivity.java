@@ -22,65 +22,76 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuActivity extends Activity implements BaseActivityStructure, ExportImportButtonsCallback {
 
-	private TextView tvLearn, tvTest,tvVocabulary, tvActHeader, tvExportImport;
+    private TextView tvLearn, tvSpecialWords, tvTest, tvVocabulary, tvActHeader, tvExportImport;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_menu);
 
-		findAllViews();
-		setOnClickListeners();
-    	tvActHeader.setText("Main Menu");
+        findAllViews();
+        setOnClickListeners();
+        tvActHeader.setText("Main Menu");
     }
 
-	@Override
-	public void findAllViews() {
-		tvTest = (TextView) findViewById(R.id.tvTest);
-		tvLearn = (TextView) findViewById(R.id.tvLearn);
-		tvVocabulary = (TextView) findViewById(R.id.tvEditVocabs);
-		tvActHeader = (TextView) findViewById(R.id.tvActName);
+    @Override
+    public void findAllViews() {
+        tvTest = (TextView) findViewById(R.id.tvTest);
+        tvLearn = (TextView) findViewById(R.id.tvLearn);
+        tvSpecialWords = (TextView) findViewById(R.id.tvLearnHard);
+        tvVocabulary = (TextView) findViewById(R.id.tvEditVocabs);
+        tvActHeader = (TextView) findViewById(R.id.tvActName);
         tvExportImport = (TextView) findViewById(R.id.tvExportImport);
-	}
+    }
 
-	@Override
-	public void setOnClickListeners() {
-		tvTest.setOnClickListener(this);
-		tvLearn.setOnClickListener(this);
-		tvVocabulary.setOnClickListener(this);
-		tvActHeader.setOnClickListener(this);
-		tvExportImport.setOnClickListener(this);
-	}
- 
-	
-	
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.tvTest:
-			IntentHelper.startActivity(SelectVocabularyForTestingActivity.class, this);
-			break;
-		case R.id.tvLearn:
-			IntentHelper.startActivity(SelectVocabularyForLearnActivity.class, this);
-			break;
-		case R.id.tvEditVocabs:
-			IntentHelper.startActivity(VocabulariesListActivity.class, this);
-			break;
-        case R.id.tvExportImport:
-            processExportImportButtonsPressing();
-            break;
-		default:
-			break;
-		}
-	}
+    @Override
+    public void setOnClickListeners() {
+        tvTest.setOnClickListener(this);
+        tvLearn.setOnClickListener(this);
+        tvVocabulary.setOnClickListener(this);
+        tvActHeader.setOnClickListener(this);
+        tvExportImport.setOnClickListener(this);
+        tvSpecialWords.setOnClickListener(this);
+    }
 
-    private void processExportImportButtonsPressing(){
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvTest:
+                IntentHelper.startActivity(SelectVocabularyForTestingActivity.class, this);
+                break;
+            case R.id.tvLearn:
+                IntentHelper.startActivity(SelectVocabularyForLearnActivity.class, this);
+                break;
+            case R.id.tvEditVocabs:
+                IntentHelper.startActivity(VocabulariesListActivity.class, this);
+                break;
+            case R.id.tvExportImport:
+                processExportImportButtonsPressing();
+                break;
+            case R.id.tvLearnHard:
+                processSpecialWordsLabelPressing();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void processExportImportButtonsPressing() {
         SelectExportImportDialog dialog = new SelectExportImportDialog(this, this);
         dialog.show();
+    }
+
+    private void processSpecialWordsLabelPressing() {
+        Intent intent = new Intent(this, LearnWordsInVocabularyActivity.class);
+        intent.putExtra(Const.VOCAB_ID_POSITION_IN_LIST, Const.OPEN_LEARN_WORDS_ACTIVITY_FOR_HARD_WORDS);
+        startActivity(intent);
     }
 
     @Override
@@ -101,7 +112,7 @@ public class MenuActivity extends Activity implements BaseActivityStructure, Exp
             String pathFromFileExp = data.getStringExtra(FileExplorerActivity.PATH_TO_DIRECTORY_AND_FILE_NAME);
 
             if (requestCode == Const.REQUEST_CODE_FOR_IMPORT) {
-                if (FileWorkHelper.isExtentionFalse(pathFromFileExp, Const.EXPORT_IMPORT_EXTENTION)){
+                if (FileWorkHelper.isExtentionFalse(pathFromFileExp, Const.EXPORT_IMPORT_EXTENTION)) {
                     ToastHelper.useLongToast(this, "Invalid extension name");
                     return;
                 }
@@ -109,7 +120,7 @@ public class MenuActivity extends Activity implements BaseActivityStructure, Exp
                 ImportContentFromFileAT importContentFromFileAT = new ImportContentFromFileAT(this, pathFromFileExp);
                 importContentFromFileAT.execute();
 
-            }else if (requestCode == Const.REQUEST_CODE_FOR_EXPORT){
+            } else if (requestCode == Const.REQUEST_CODE_FOR_EXPORT) {
 
                 pathFromFileExp += "." + Const.EXPORT_IMPORT_EXTENTION;
 

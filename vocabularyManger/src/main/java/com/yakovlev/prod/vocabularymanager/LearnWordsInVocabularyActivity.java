@@ -23,6 +23,7 @@ import com.yakovlev.prod.vocabularymanager.dialogs.AlertDialogsHolder;
 import com.yakovlev.prod.vocabularymanager.dialogs.DialogAskCallback;
 import com.yakovlev.prod.vocabularymanager.ormlite.Vocabulary;
 import com.yakovlev.prod.vocabularymanager.ormlite.VocabularyDbHelp;
+import com.yakovlev.prod.vocabularymanager.support.HardWordMode;
 import com.yakovlev.prod.vocabularymanager.support.SharedPreferencesHelper;
 import com.yakovlev.prod.vocabularymanager.support.ToastHelper;
 import com.yakovlev.prod.vocabularymanger.R;
@@ -133,11 +134,12 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         btnShowAllWords.setOnClickListener(this);
     }
 
+    private HardWordMode hardWordsMode = HardWordMode.ALL_HARD_WORDS;
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
 
         if (isOpenHardWordsModeActive)
-            return new HardWordsCursorLoader(this);
+            return new HardWordsCursorLoader(this,hardWordsMode);
         else
             return new WordsCursorLoader(vocabularyId, this);
     }
@@ -159,8 +161,8 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         // some code :)
     }
 
-	public CursorAdapter setCursorAdapter(Cursor cursor) {
-		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId);
+	public CursorAdapter  setCursorAdapter(Cursor cursor) {
+		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId, hardWordsMode);
         int wordsCount = adapter.getCount();
         String message = "Number of words in vocabulary : " + Integer.toString(wordsCount);
         ToastHelper.doInUIThreadShort(message, this);
@@ -168,10 +170,14 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
 	}
 
     private void processVocabularyChanging(){
-        getSupportLoaderManager().restartLoader(0, null, this);
-        processLastVocabularyIdFromPreferences(vocabularyId);
-        currentVocabulary = initVocabularyByPosition(vocabularyId);
-        tvVocabName.setText(currentVocabulary.getvName());
+        try {
+            getSupportLoaderManager().restartLoader(0, null, this);
+            processLastVocabularyIdFromPreferences(vocabularyId);
+            currentVocabulary = initVocabularyByPosition(vocabularyId);
+            tvVocabName.setText(currentVocabulary.getvName());
+        }catch (Exception ex){
+            ToastHelper.doInUIThreadShort("Toggle vocabulary exception", this);
+        }
     }
 
 	@Override
@@ -195,12 +201,16 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
                 }
                 break;
             case R.id.btnHardWordsFirstRank:
-
+                hardWordsMode = HardWordMode.ONLY_HARDEST_WORDS;
+                getSupportLoaderManager().restartLoader(0, null, this);
                 break;
             case R.id.btnHardWordsSecondRank:
-
+                hardWordsMode = HardWordMode.ONLY_SECOND_RANG;
+                getSupportLoaderManager().restartLoader(0, null, this);
                 break;
             case R.id.btnLearnedWord:
+                hardWordsMode = HardWordMode.ALL_HARD_WORDS;
+                getSupportLoaderManager().restartLoader(0, null, this);
 
                 break;
         }
