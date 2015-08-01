@@ -43,14 +43,17 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
 	private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks;
     private int vocabId = -1;
     private HardWordMode hardWordMode;
-	public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId,HardWordMode hardWordMode) {
-		super(context, cursor);
+    private String textSearch;
+
+    public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId, HardWordMode hardWordMode, String textSearch) {
+        super(context, cursor);
+        this.textSearch = textSearch;
         this.hardWordMode = hardWordMode;
-		this.inflater = LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.cursorLoaderCallbacks = cursorLoaderCallbacks;
         this.vocabId = vocabId;
-	}
+    }
 
 	@Override
 	public void bindView(View view, final Context context, Cursor cursor) {
@@ -176,10 +179,9 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
     public void setHardWordMode(HardWordMode mode){
         this.hardWordMode = mode;
     }
-
     private void reloadCursorAndChangeForAdapter(){
         if (vocabId == Const.OPEN_LEARN_WORDS_ACTIVITY_FOR_HARD_WORDS) {
-            Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context, hardWordMode);
+            Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context, hardWordMode, textSearch);
             changeCursor(cursor);
         }
         else {

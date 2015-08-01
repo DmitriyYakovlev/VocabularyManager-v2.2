@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/st_rl_parent" >
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/st_rl_parent">
 
 
 
@@ -17,6 +18,17 @@
             android:layout_toRightOf="@+id/tvActName"
             android:textSize="14sp"
             style="@style/st_tv_header_vocab_name" />
+
+
+        <ImageButton
+            android:id="@+id/imgBtnSearch"
+            android:layout_width="@dimen/dm_iv_size"
+            android:layout_height="@dimen/dm_iv_size"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/dm_iv_margin"
+            android:layout_toLeftOf="@+id/imgBtnSwitch"
+            android:background="@android:drawable/ic_menu_search">
+        </ImageButton>
 
         <ImageButton
             android:id="@+id/imgBtnSwitch"
@@ -101,8 +113,17 @@
             style="@style/st_rl_middle_content"
             android:layout_above="@+id/rlBottomLine" >
 
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:layout_height="50dp" />
+
             <ListView
                 android:id="@+id/lvVocabs"
+                android:layout_below="@+id/edtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never" >

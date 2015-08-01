@@ -13,16 +13,18 @@ public class HardWordsCursorLoader  extends CursorLoader {
 
     private Context context;
     private HardWordMode mode;
+    private String text;
 
-    public HardWordsCursorLoader(Context context, HardWordMode mode) {
+    public HardWordsCursorLoader(Context context, HardWordMode mode,String text) {
         super(context);
         this.context = context;
         this.mode = mode;
+        this.text = text;
     }
 
     @Override
     public Cursor loadInBackground() {
-        Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context,mode);
+        Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context,mode,text);
         return cursor;
     }
 

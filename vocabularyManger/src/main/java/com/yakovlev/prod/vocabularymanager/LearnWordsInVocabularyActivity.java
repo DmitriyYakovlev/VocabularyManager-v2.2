@@ -8,9 +8,12 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,7 +38,9 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         BaseActivityStructure, LoaderManager.LoaderCallbacks<Cursor>, DialogAskCallback {
 
 	private LearnWordsCursorAdapter adapter;
-    private ImageButton btnSwitchMode, btnPrevious, btnNext, btnShowHardWordsFirstRank, btnShowHardWordsSecondRank, btnShowAllWords;
+    private ImageButton btnSwitchMode, btnPrevious, btnNext, btnShowHardWordsFirstRank,
+            btnShowHardWordsSecondRank, btnShowAllWords, btnSearch;
+    private EditText edtSearchText;
     private ListView listContent;
     private TextView tvHeader, tvVocabName;
     private int vocabularyId;
@@ -43,7 +48,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
     private boolean isOpenHardWordsModeActive = false;
     private ArrayList<Integer> vocabIsList;
     private Vocabulary currentVocabulary;
-
+    private String textSearch = null;
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -73,7 +78,6 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
             btnPrevious.setVisibility(View.GONE);
             btnNext.setVisibility(View.GONE);
         }
-
     }
 
     private Vocabulary initVocabularyByPosition(int position){
@@ -83,7 +87,6 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
             e.printStackTrace();
             return  null;
         }
-
     }
 
     @Override
@@ -118,8 +121,10 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         tvHeader = (TextView) findViewById(R.id.tvActName);
         tvVocabName = (TextView) findViewById(R.id.tvVocabName);
         btnPrevious = (ImageButton)findViewById(R.id.btnPreliminaryVocabulary);
+        btnSearch = (ImageButton)findViewById(R.id.imgBtnSearch);
         btnNext = (ImageButton)findViewById(R.id.btnNextVocabulary);
-
+        edtSearchText = (EditText)findViewById(R.id.edtSearch);
+        edtSearchText.setOnEditorActionListener(editorActionListener);
         btnShowHardWordsFirstRank = (ImageButton)findViewById(R.id.btnHardWordsFirstRank);
         btnShowHardWordsSecondRank = (ImageButton)findViewById(R.id.btnHardWordsSecondRank);
         btnShowAllWords = (ImageButton)findViewById(R.id.btnLearnedWord);
@@ -132,6 +137,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         btnShowHardWordsFirstRank.setOnClickListener(this);
         btnShowHardWordsSecondRank.setOnClickListener(this);
         btnShowAllWords.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
     }
 
     private HardWordMode hardWordsMode = HardWordMode.ALL_HARD_WORDS;
@@ -139,7 +145,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
 
         if (isOpenHardWordsModeActive)
-            return new HardWordsCursorLoader(this,hardWordsMode);
+            return new HardWordsCursorLoader(this,hardWordsMode, textSearch);
         else
             return new WordsCursorLoader(vocabularyId, this);
     }
@@ -162,7 +168,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
     }
 
 	public CursorAdapter  setCursorAdapter(Cursor cursor) {
-		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId, hardWordsMode);
+		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId, hardWordsMode,textSearch);
         int wordsCount = adapter.getCount();
         String message = "Number of words in vocabulary : " + Integer.toString(wordsCount);
         ToastHelper.doInUIThreadShort(message, this);
@@ -211,9 +217,33 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
             case R.id.btnLearnedWord:
                 hardWordsMode = HardWordMode.ALL_HARD_WORDS;
                 getSupportLoaderManager().restartLoader(0, null, this);
-
+                break;
+            case R.id.imgBtnSearch:
+                processSearchButtonPress();
                 break;
         }
 	}
+
+    private void processSearchButtonPress(){
+        if (edtSearchText.getVisibility() == View.GONE){
+            edtSearchText.setVisibility(View.VISIBLE);
+        }else{
+            edtSearchText.setVisibility(View.GONE);
+            textSearch = null;
+            getSupportLoaderManager().restartLoader(0, null, LearnWordsInVocabularyActivity.this);
+        }
+    }
+
+    EditText.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                textSearch = edtSearchText.getText().toString();
+                getSupportLoaderManager().restartLoader(0, null, LearnWordsInVocabularyActivity.this);
+                return true;
+            }
+            return false;
+        }
+    };
 
 }
