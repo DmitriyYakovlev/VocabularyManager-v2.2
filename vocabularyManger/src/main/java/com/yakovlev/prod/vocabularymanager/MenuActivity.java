@@ -27,7 +27,8 @@ import java.util.List;
 
 public class MenuActivity extends Activity implements BaseActivityStructure, ExportImportButtonsCallback {
 
-    private TextView tvLearn, tvSpecialWords, tvTest, tvVocabulary, tvActHeader, tvExportImport;
+    private TextView tvLearn, tvSpecialWords, tvTest, tvVocabulary, tvActHeader, tvExportImport,
+        tvWordsCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,14 @@ public class MenuActivity extends Activity implements BaseActivityStructure, Exp
         findAllViews();
         setOnClickListeners();
         tvActHeader.setText("Main Menu");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvWordsCount.setText("Total words count : " +
+                Long.toString(WordTableHelper.getCountOfWordsInDatabase(this)));
     }
 
     @Override
@@ -47,6 +56,7 @@ public class MenuActivity extends Activity implements BaseActivityStructure, Exp
         tvVocabulary = (TextView) findViewById(R.id.tvEditVocabs);
         tvActHeader = (TextView) findViewById(R.id.tvActName);
         tvExportImport = (TextView) findViewById(R.id.tvExportImport);
+        tvWordsCount = (TextView) findViewById(R.id.tvWordsCount);
     }
 
     @Override

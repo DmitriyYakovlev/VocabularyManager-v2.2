@@ -94,6 +94,17 @@
                 android:text="Export / Import" >
             </TextView>
 
+            <TextView
+                android:id="@+id/tvWordsCount"
+                style="@style/st_text_white_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/dm_main_act_menu_items_margin_top_other"
+                android:text="Total words count : " >
+            </TextView>
+
         </RelativeLayout>
 
         <RelativeLayout

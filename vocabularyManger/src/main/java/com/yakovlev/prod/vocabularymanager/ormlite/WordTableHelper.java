@@ -70,6 +70,12 @@ public class WordTableHelper {
         return word.getWordStatus();
     }
 
+    public static long getCountOfWordsInDatabase(Context context){
+        DatabaseHelper dbHelper = new DatabaseHelper(context);
+        RuntimeExceptionDao<WordTable, Integer> simpleDao = dbHelper.getWordsRuntimeDataDao();
+        return simpleDao.countOf();
+    }
+
     public static Cursor getHardWordsCursorFromORM(Context context, HardWordMode mode, String text)  {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         RuntimeExceptionDao<WordTable, Integer> simpleDao = dbHelper.getWordsRuntimeDataDao();
