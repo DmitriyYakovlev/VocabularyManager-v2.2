@@ -102,7 +102,7 @@
                 android:textSize="15sp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="@dimen/dm_main_act_menu_items_margin_top_other"
-                android:text="Total words count : " >
+                android:text="Total count of objects : " >
             </TextView>
 
         </RelativeLayout>

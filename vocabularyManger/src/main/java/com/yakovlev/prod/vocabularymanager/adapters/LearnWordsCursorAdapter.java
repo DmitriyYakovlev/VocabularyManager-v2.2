@@ -44,8 +44,9 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
     private int vocabId = -1;
     private HardWordMode hardWordMode;
     private String textSearch;
+    private boolean isCheckedSearch;
 
-    public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId, HardWordMode hardWordMode, String textSearch) {
+    public LearnWordsCursorAdapter(Context context, Cursor cursor, LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks, int vocabId, HardWordMode hardWordMode, String textSearch, boolean isCheckedSearch) {
         super(context, cursor);
         this.textSearch = textSearch;
         this.hardWordMode = hardWordMode;
@@ -53,6 +54,7 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
         this.context = context;
         this.cursorLoaderCallbacks = cursorLoaderCallbacks;
         this.vocabId = vocabId;
+        this.isCheckedSearch = isCheckedSearch;
     }
 
 	@Override
@@ -175,15 +177,18 @@ public class LearnWordsCursorAdapter extends CursorAdapter implements OperateWor
             e.printStackTrace();
         }
     }
-
     public void setHardWordMode(HardWordMode mode){
         this.hardWordMode = mode;
     }
     private void reloadCursorAndChangeForAdapter(){
         if (vocabId == Const.OPEN_LEARN_WORDS_ACTIVITY_FOR_HARD_WORDS) {
-            Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context, hardWordMode, textSearch);
+            Cursor cursor = null;
+            if (hardWordMode.equals(HardWordMode.ALL_WORDS))
+                cursor = WordTableHelper.getAllWordsCursorFromORM(context, textSearch, isCheckedSearch);
+            else
+                cursor = WordTableHelper.getHardWordsCursorFromORM(context, hardWordMode, textSearch, isCheckedSearch);
             changeCursor(cursor);
-        }
+    }
         else {
             WordsCursorLoader loader = new WordsCursorLoader(vocabId, context);
             changeCursor(loader.getCursor());

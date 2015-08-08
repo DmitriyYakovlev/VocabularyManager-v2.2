@@ -14,18 +14,22 @@ public class HardWordsCursorLoader  extends CursorLoader {
     private Context context;
     private HardWordMode mode;
     private String text;
+    private boolean isSearchFromStart;
 
-    public HardWordsCursorLoader(Context context, HardWordMode mode,String text) {
+    public HardWordsCursorLoader(Context context, HardWordMode mode, String text, boolean isSearchFromStart) {
         super(context);
         this.context = context;
         this.mode = mode;
         this.text = text;
+        this.isSearchFromStart = isSearchFromStart;
     }
 
     @Override
     public Cursor loadInBackground() {
-        Cursor cursor = WordTableHelper.getHardWordsCursorFromORM(context,mode,text);
-        return cursor;
+        if (mode.equals(HardWordMode.ALL_WORDS))
+            return WordTableHelper.getAllWordsCursorFromORM(context, text, isSearchFromStart);
+        else
+            return WordTableHelper.getHardWordsCursorFromORM(context, mode, text, isSearchFromStart);
     }
 
 }

@@ -6,5 +6,6 @@ package com.yakovlev.prod.vocabularymanager.support;
 public enum HardWordMode {
     ALL_HARD_WORDS,
     ONLY_HARDEST_WORDS,
-    ONLY_SECOND_RANG;
+    ONLY_SECOND_RANG,
+    ALL_WORDS;
 }

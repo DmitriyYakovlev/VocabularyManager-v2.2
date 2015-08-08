@@ -104,6 +104,14 @@
                 android:background="@color/col_navajo_white2"
                 android:layout_height="match_parent" />
 
+            <ImageButton
+                android:id="@+id/btnAllWords"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/ic_all_words"
+                android:background="@color/col_navajo_white2"
+                android:layout_height="match_parent" />
 
 
         </LinearLayout>
@@ -113,17 +121,37 @@
             style="@style/st_rl_middle_content"
             android:layout_above="@+id/rlBottomLine" >
 
-            <EditText
-                android:id="@+id/edtSearch"
+            <RelativeLayout
+                android:id="@+id/rlSearchHolder"
                 android:layout_width="match_parent"
                 android:visibility="gone"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:layout_height="50dp" />
+                android:layout_height="55dp">
+
+                <CheckBox
+                    android:id="@+id/cbSearchFlag"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:checked="true"
+                    android:layout_alignParentRight="true" />
+
+                <EditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="match_parent"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:layout_marginRight="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/cbSearchFlag"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
 
             <ListView
                 android:id="@+id/lvVocabs"
-                android:layout_below="@+id/edtSearch"
+                android:layout_below="@+id/rlSearchHolder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never" >

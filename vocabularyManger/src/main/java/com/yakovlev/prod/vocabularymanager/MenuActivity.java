@@ -44,7 +44,7 @@ public class MenuActivity extends Activity implements BaseActivityStructure, Exp
     @Override
     protected void onResume() {
         super.onResume();
-        tvWordsCount.setText("Total words count : " +
+        tvWordsCount.setText("Total count of objects: " +
                 Long.toString(WordTableHelper.getCountOfWordsInDatabase(this)));
     }
 

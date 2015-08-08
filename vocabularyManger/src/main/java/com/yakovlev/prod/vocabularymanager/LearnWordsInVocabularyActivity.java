@@ -13,9 +13,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yakovlev.prod.vocabularymanager.adapters.LearnWordsCursorAdapter;
@@ -39,13 +42,15 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
 
 	private LearnWordsCursorAdapter adapter;
     private ImageButton btnSwitchMode, btnPrevious, btnNext, btnShowHardWordsFirstRank,
-            btnShowHardWordsSecondRank, btnShowAllWords, btnSearch;
+            btnShowHardWordsSecondRank, btnShowAllWords, btnSearch, btnAllWords;
+    private RelativeLayout rlSearchHolder;
+    private CheckBox cbIsStartSearchPatternFromStartOfString;
     private EditText edtSearchText;
     private ListView listContent;
     private TextView tvHeader, tvVocabName;
     private int vocabularyId;
     private CursorAdapter baseCursorAdapter;
-    private boolean isOpenHardWordsModeActive = false;
+    private boolean isOpenHardWordsModeActive = false, isSearchFromStartOfString = true;
     private ArrayList<Integer> vocabIsList;
     private Vocabulary currentVocabulary;
     private String textSearch = null;
@@ -128,6 +133,9 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         btnShowHardWordsFirstRank = (ImageButton)findViewById(R.id.btnHardWordsFirstRank);
         btnShowHardWordsSecondRank = (ImageButton)findViewById(R.id.btnHardWordsSecondRank);
         btnShowAllWords = (ImageButton)findViewById(R.id.btnLearnedWord);
+        btnAllWords = (ImageButton)findViewById(R.id.btnAllWords);
+        rlSearchHolder = (RelativeLayout)findViewById(R.id.rlSearchHolder);
+        cbIsStartSearchPatternFromStartOfString = (CheckBox)findViewById(R.id.cbSearchFlag);
     }
 
     @Override
@@ -138,14 +146,23 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
         btnShowHardWordsSecondRank.setOnClickListener(this);
         btnShowAllWords.setOnClickListener(this);
         btnSearch.setOnClickListener(this);
+        btnAllWords.setOnClickListener(this);
+        cbIsStartSearchPatternFromStartOfString.setOnCheckedChangeListener(toogleSearchFlagListener);
     }
+
+    CompoundButton.OnCheckedChangeListener toogleSearchFlagListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            isSearchFromStartOfString = cbIsStartSearchPatternFromStartOfString.isChecked();
+        }
+    };
 
     private HardWordMode hardWordsMode = HardWordMode.ALL_HARD_WORDS;
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
 
         if (isOpenHardWordsModeActive)
-            return new HardWordsCursorLoader(this,hardWordsMode, textSearch);
+            return new HardWordsCursorLoader(this,hardWordsMode, textSearch, isSearchFromStartOfString);
         else
             return new WordsCursorLoader(vocabularyId, this);
     }
@@ -168,7 +185,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
     }
 
 	public CursorAdapter  setCursorAdapter(Cursor cursor) {
-		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId, hardWordsMode,textSearch);
+		adapter = new LearnWordsCursorAdapter(this, cursor, this, vocabularyId, hardWordsMode,textSearch, isSearchFromStartOfString);
         int wordsCount = adapter.getCount();
         String message = "Number of words in vocabulary : " + Integer.toString(wordsCount);
         ToastHelper.doInUIThreadShort(message, this);
@@ -200,8 +217,7 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
                 vocabularyId--;
                 if (vocabularyId > 0 ) {
                     processVocabularyChanging();
-                }
-                else {
+                } else {
                     ToastHelper.doInUIThread("Vocabulary id ought be bigger than 0", this);
                     vocabularyId++;
                 }
@@ -218,6 +234,10 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
                 hardWordsMode = HardWordMode.ALL_HARD_WORDS;
                 getSupportLoaderManager().restartLoader(0, null, this);
                 break;
+            case R.id.btnAllWords:
+                hardWordsMode = HardWordMode.ALL_WORDS;
+                getSupportLoaderManager().restartLoader(0, null, this);
+                break;
             case R.id.imgBtnSearch:
                 processSearchButtonPress();
                 break;
@@ -225,10 +245,10 @@ public class LearnWordsInVocabularyActivity extends FragmentActivity implements
 	}
 
     private void processSearchButtonPress(){
-        if (edtSearchText.getVisibility() == View.GONE){
-            edtSearchText.setVisibility(View.VISIBLE);
+        if (rlSearchHolder.getVisibility() == View.GONE){
+            rlSearchHolder.setVisibility(View.VISIBLE);
         }else{
-            edtSearchText.setVisibility(View.GONE);
+            rlSearchHolder.setVisibility(View.GONE);
             textSearch = null;
             getSupportLoaderManager().restartLoader(0, null, LearnWordsInVocabularyActivity.this);
         }
